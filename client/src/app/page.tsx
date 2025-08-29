@@ -1,23 +1,37 @@
-// app/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Hero from '@/components/Hero/Hero';
 
 export default function HomePage() {
   const [message, setMessage] = useState<string>('Loading...');
 
   useEffect(() => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    axios.get(`${apiUrl}/`) // backend root endpoint
-      .then(res => setMessage(res.data.message || 'Server online'))
-      .catch(err => setMessage('Backend offline'));
+    axios
+      .get(`${apiUrl}/`)
+      .then((res) => setMessage(res.data.message || 'Server online'))
+      .catch(() => setMessage('Backend offline'));
   }, []);
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-4">
-      <h1 className="text-4xl font-bold mb-4">Moj Portfolio</h1>
-      <p className="text-lg">{message}</p>
+    <main className="bg-black text-white">
+      {/* Hero sekcija */}
+      
+      <Hero />
+    
+
+
+      {/* Sljedeća sekcija – npr. About */}
+      <section className="w-full min-h-screen flex items-center justify-center bg-gray-900">
+        <h2 className="text-3xl font-bold">O meni</h2>
+      </section>
+
+      {/* Još sekcija */}
+      <section className="w-full min-h-screen flex items-center justify-center bg-gray-800">
+        <h2 className="text-3xl font-bold">Projekti</h2>
+      </section>
     </main>
   );
 }
