@@ -4,23 +4,23 @@ import { motion } from 'framer-motion';
 
 const Hero: React.FC = () => {
   return (
-    <section className="relative w-full h-screen bg-black flex items-center px-8 md:px-16">
-      <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-7xl h-full">
-        
+    <section className="relative w-full h-screen bg-[#080D10] flex items-center justify-center px-8 md:px-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-7xl h-full items-center">
+
         {/* Lijevi dio */}
-        <div className="flex flex-col justify-center h-full">
+        <div className="flex flex-col justify-center items-center md:items-start h-full text-center md:text-left">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ staggerChildren: 0.2 }}
           >
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-white mb-4 leading-tight">
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-[#EBECE7] mb-4 leading-tight">
               Dizajniramo<span className="text-[#FFBD00]">.</span>
             </h1>
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-white mb-4 leading-tight">
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-[#EBECE7] mb-4 leading-tight">
               Razvijamo<span className="text-[#FFBD00]">.</span>
             </h1>
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-white leading-tight">
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-[#EBECE7] leading-tight">
               Inspiriramo<span className="text-[#FFBD00]">.</span>
             </h1>
           </motion.div>
@@ -31,7 +31,7 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.8 }}
-          className="flex flex-col justify-end items-end h-full text-white text-sm md:text-base leading-relaxed text-right pb-12"
+          className="flex flex-col justify-center items-center md:items-end h-full text-white text-sm md:text-base leading-relaxed text-center md:text-right"
         >
           <motion.p
             initial={{ opacity: 0, y: 10 }}

@@ -1,27 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import Hero from '@/components/Hero/Hero';
-import AnimatedWords from '@/components/AnimatedWords';
+import StatementSection from '@/components/StatementSection';
+import ExpertiseSection from '@/components/ExpertiseSection';
 
 export default function HomePage() {
-  const [message, setMessage] = useState<string>('Loading...');
 
-  useEffect(() => {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    axios
-      .get(`${apiUrl}/`)
-      .then((res) => setMessage(res.data.message || 'Server online'))
-      .catch(() => setMessage('Backend offline'));
-  }, []);
+
 
   return (
-    <main className="bg-black text-white">
+    <main className="bg-[#080D10] text-white">
       <Hero />
 
       {/* Love sekcija – bijela pozadina */}
-      <AnimatedWords />
+      <StatementSection />
+
+
+      <ExpertiseSection />
 
       <section className="w-full min-h-screen flex items-center justify-center bg-gray-900">
         <h2 className="text-3xl font-bold">O meni</h2>
