@@ -1,101 +1,46 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import React from "react";
+import { motion } from 'framer-motion';
+import React from 'react';
 
-function TypewriterWord({
-  text,
-  delay = 0,
-}: {
+// --- Typewriter Word ---
+interface TypewriterWordProps {
   text: string;
   delay?: number;
-}) {
+}
+
+function TypewriterWord({ text, delay = 0 }: TypewriterWordProps) {
   return (
     <motion.span
       className="inline-block"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.3, ease: "easeOut" }}
-      viewport={{ once: false, amount: 0.6 }} // svaki put kad uđe u viewport
+      transition={{ delay, duration: 0.3, ease: 'easeOut' }}
+      viewport={{ once: false, amount: 0.6 }}
     >
       {text}
     </motion.span>
   );
 }
 
-export default function StatementSection() {
-  const lines: (React.ReactNode | string)[][] = [
-    ["Volimo"],
-    [
-      <AccentUnderline key="dizajn" color="#F2C64C" offset={8} stroke={12} squiggle>
-        dizajn,
-      </AccentUnderline>,
-    ],
-    [
-      <AccentUnderline key="tehno" color="#5D3DF0" stroke={14} thickness={8}>
-        tehnologiju
-      </AccentUnderline>,
-      " i",
-    ],
-    ["stvaranje"],
-    ["digitalnih"],
-    [
-      <AccentCircle
-        key="iskustva"
-        color="#FF3B5C"
-        stroke={10}
-        paddingX={22}
-        paddingY={6}
-      >
-        iskustava
-      </AccentCircle>,
-    ],
-    ["koja ljudi"],
-    ["pamtе."],
-  ];
-
-  let delayCounter = 0;
-
-  return (
-<section className="relative isolate flex items-center justify-center min-h-[100vh] w-full bg-[#EBECE7] px-6 py-24">
-  <div className="mx-auto w-full max-w-[780px] text-center pt-[68px]">
-    <h1 className="font-extrabold tracking-tight leading-[1.08] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-black">
-      {lines.map((line, i) => (
-        <span key={i} className="block">
-          {line.map((word, j) => {
-            delayCounter += 0.15;
-            if (typeof word === "string") {
-              return (
-                <TypewriterWord
-                  key={j}
-                  text={` ${word}`}
-                  delay={delayCounter}
-                />
-              );
-            }
-            return (
-              <motion.span
-                key={j}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: delayCounter, duration: 0.3 }}
-                viewport={{ once: false, amount: 0.6 }}
-              >
-                {word}
-              </motion.span>
-            );
-          })}
-        </span>
-      ))}
-    </h1>
-  </div>
-</section>
-
-  );
+// --- Accent Underline ---
+interface AccentUnderlineProps {
+  children: React.ReactNode;
+  color?: string;
+  stroke?: number;
+  thickness?: number;
+  offset?: number;
+  squiggle?: boolean;
 }
 
-// --- dekoracije ---
-function AccentUnderline({ children, color = "#FFD54F", stroke = 12, thickness = 0, offset = 6, squiggle = false }: any) {
+function AccentUnderline({
+  children,
+  color = '#FFD54F',
+  stroke = 12,
+  thickness = 0,
+  offset = 6,
+  squiggle = false,
+}: AccentUnderlineProps) {
   return (
     <span className="relative inline-block px-1">
       <span className="relative z-10">{children}</span>
@@ -131,13 +76,22 @@ function AccentUnderline({ children, color = "#FFD54F", stroke = 12, thickness =
   );
 }
 
+// --- Accent Circle ---
+interface AccentCircleProps {
+  children: React.ReactNode;
+  color?: string;
+  stroke?: number;
+  paddingX?: number;
+  paddingY?: number;
+}
+
 function AccentCircle({
   children,
-  color = "#FF3B5C",
+  color = '#FF3B5C',
   stroke = 10,
   paddingX = 18,
   paddingY = 4,
-}: any) {
+}: AccentCircleProps) {
   return (
     <span
       className="relative inline-block"
@@ -161,5 +115,64 @@ function AccentCircle({
         />
       </svg>
     </span>
+  );
+}
+
+// --- Statement Section ---
+export default function StatementSection() {
+  const lines: (React.ReactNode | string)[][] = [
+    ['Volimo'],
+    [
+      <AccentUnderline key="dizajn" color="#F2C64C" offset={8} stroke={12} squiggle>
+        dizajn,
+      </AccentUnderline>,
+    ],
+    [
+      <AccentUnderline key="tehno" color="#5D3DF0" stroke={14} thickness={8}>
+        tehnologiju
+      </AccentUnderline>,
+      ' i',
+    ],
+    ['stvaranje'],
+    ['digitalnih'],
+    [
+      <AccentCircle key="iskustva" color="#FF3B5C" stroke={10} paddingX={22} paddingY={6}>
+        iskustava
+      </AccentCircle>,
+    ],
+    ['koja ljudi'],
+    ['pamtе.'],
+  ];
+
+  let delayCounter = 0;
+
+  return (
+    <section className="relative isolate flex items-center justify-center min-h-[100vh] w-full bg-[#EBECE7] px-6 py-24">
+      <div className="mx-auto w-full max-w-[780px] text-center pt-[68px]">
+        <h1 className="font-extrabold tracking-tight leading-[1.08] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-black">
+          {lines.map((line, i) => (
+            <span key={i} className="block">
+              {line.map((word, j) => {
+                delayCounter += 0.15;
+                if (typeof word === 'string') {
+                  return <TypewriterWord key={j} text={` ${word}`} delay={delayCounter} />;
+                }
+                return (
+                  <motion.span
+                    key={j}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: delayCounter, duration: 0.3 }}
+                    viewport={{ once: false, amount: 0.6 }}
+                  >
+                    {word}
+                  </motion.span>
+                );
+              })}
+            </span>
+          ))}
+        </h1>
+      </div>
+    </section>
   );
 }
