@@ -23,97 +23,59 @@ function TypewriterWord({ text, delay = 0 }: TypewriterWordProps) {
   );
 }
 
-// --- Accent Underline ---
-interface AccentUnderlineProps {
+// --- Accent Image Underline ---
+interface AccentUnderlineImageProps {
   children: React.ReactNode;
-  color?: string;
-  stroke?: number;
-  thickness?: number;
+  imageSrc: string;
   offset?: number;
-  squiggle?: boolean;
+  height?: number;
 }
 
-function AccentUnderline({
+function AccentUnderlineImage({
   children,
-  color = '#FFD54F',
-  stroke = 12,
-  thickness = 0,
+  imageSrc,
   offset = 6,
-  squiggle = false,
-}: AccentUnderlineProps) {
+  height = 20,
+}: AccentUnderlineImageProps) {
   return (
-    <span className="relative inline-block px-1">
+    <span className="relative inline-block">
       <span className="relative z-10">{children}</span>
-      <svg
-        aria-hidden
-        className="absolute left-0 right-0 mx-auto -z-0"
-        style={{ bottom: -offset }}
-        width="100%"
-        height={squiggle ? stroke * 2 : Math.max(stroke, thickness)}
-        viewBox="0 0 100 20"
-        preserveAspectRatio="none"
-      >
-        {squiggle ? (
-          <path
-            d="M2 12 Q 10 2 18 12 T 34 12 T 50 12 T 66 12 T 82 12 T 98 12"
-            fill="none"
-            stroke={color}
-            strokeWidth={stroke}
-            strokeLinecap="round"
-          />
-        ) : (
-          <rect
-            x="0"
-            y={10 - stroke / 2}
-            width="100"
-            height={stroke}
-            rx={3}
-            fill={color}
-          />
-        )}
-      </svg>
+      <img
+        src={imageSrc}
+        alt="underline"
+        className="absolute left-0 right-0 mx-auto bottom-0 w-full object-contain"
+        style={{
+          bottom: -offset,
+          height: `${height}px`,
+        }}
+      />
     </span>
   );
 }
 
-// --- Accent Circle ---
-interface AccentCircleProps {
+// --- Accent Circle Word ---
+interface AccentCircleWordProps {
   children: React.ReactNode;
-  color?: string;
-  stroke?: number;
-  paddingX?: number;
-  paddingY?: number;
+  imageSrc: string;
+  offset?: number;
 }
 
-function AccentCircle({
+function AccentCircleWord({
   children,
-  color = '#FF3B5C',
-  stroke = 10,
-  paddingX = 18,
-  paddingY = 4,
-}: AccentCircleProps) {
+  imageSrc,
+  offset = 0,
+}: AccentCircleWordProps) {
   return (
-    <span
-      className="relative inline-block"
-      style={{ padding: `${paddingY}px ${paddingX}px` }}
-    >
+    <span className="relative inline-block">
       <span className="relative z-10">{children}</span>
-      <svg
-        aria-hidden
-        className="absolute inset-0 -z-0"
-        width="100%"
-        height="100%"
-        viewBox="0 0 100 40"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M6 20c0-9 19-16 44-16s44 7 44 16-19 16-44 16S6 29 6 20Z"
-          fill="none"
-          stroke={color}
-          strokeWidth={stroke}
-          strokeLinecap="round"
-        />
-      </svg>
+      <img
+        src={imageSrc}
+        alt="circle word"
+        className="absolute left-0 right-0 mx-auto bottom-0 w-full h-auto object-contain"
+        style={{
+          bottom: -offset,
+        }}
+      />
     </span>
   );
 }
@@ -123,22 +85,36 @@ export default function StatementSection() {
   const lines: (React.ReactNode | string)[][] = [
     ['Volimo'],
     [
-      <AccentUnderline key="dizajn" color="#F2C64C" offset={8} stroke={12} squiggle>
+      <AccentUnderlineImage
+        key="dizajn"
+        imageSrc="/underline/words1.png"
+        offset={8}
+        height={28} // malo veći za veći tekst
+      >
         dizajn,
-      </AccentUnderline>,
+      </AccentUnderlineImage>,
     ],
     [
-      <AccentUnderline key="tehno" color="#5D3DF0" stroke={14} thickness={8}>
-        tehnologiju
-      </AccentUnderline>,
-      ' i',
+      <AccentUnderlineImage
+        key="tehno"
+        imageSrc="/underline/words2.png"
+        offset={8}
+        height={28}
+      >
+        tehnologiju 
+      </AccentUnderlineImage>,
+      '  i',
     ],
     ['stvaranje'],
     ['digitalnih'],
     [
-      <AccentCircle key="iskustva" color="#FF3B5C" stroke={10} paddingX={22} paddingY={6}>
+      <AccentCircleWord
+        key="iskustva"
+        imageSrc="/underline/words3.png"
+        offset={0}
+      >
         iskustava
-      </AccentCircle>,
+      </AccentCircleWord>,
     ],
     ['koja ljudi'],
     ['pamtе.'],
@@ -147,9 +123,9 @@ export default function StatementSection() {
   let delayCounter = 0;
 
   return (
-    <section className="relative isolate flex items-center justify-center min-h-[100vh] w-full bg-[#EBECE7] px-6 py-24">
-      <div className="mx-auto w-full max-w-[780px] text-center pt-[68px]">
-        <h1 className="font-extrabold tracking-tight leading-[1.08] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-black">
+    <section className="relative isolate flex items-center justify-center min-h-[80vh] w-full bg-[#EBECE7] px-6 py-16">
+      <div className="mx-auto w-full max-w-[780px] text-center pt-8">
+        <h1 className="font-extrabold tracking-tight leading-[1.05] text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-black">
           {lines.map((line, i) => (
             <span key={i} className="block">
               {line.map((word, j) => {

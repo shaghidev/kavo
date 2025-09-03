@@ -9,20 +9,37 @@ import ProjectsSection from '@/components/ProjectsSection';
 import ContactSection from '@/components/ContactSection';
 
 
+
 export default function HomePage() {
   return (
-    <main className="bg-[#080D10] text-white">
-      <Hero />
+    <main className="bg-[#080D10] text-white scroll-smooth">
+      <section id="hero">
+        <Hero />
+      </section>
 
-      {/* Love sekcija – bijela pozadina */}
-      <StatementSection />
+      <section id="about">
+        <StatementSection />
+      </section>
 
-      <ScrollCards />
+      <section id="scrollcards">
+        <ScrollCards />
+      </section>
 
-      <KavoStudioSection />
-      <ServicesSection />
-      <ProjectsSection />
-      <ContactSection />
+      <section id="studio">
+        <KavoStudioSection />
+      </section>
+
+      <section id="services">
+        <ServicesSection />
+      </section>
+
+      <section id="portfolio">
+        <ProjectsSection />
+      </section>
+
+      <section id="contact">
+        <ContactSection />
+      </section>
 
       {/* Footer na dnu */}
     </main>

@@ -1,7 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export default function ContactSection() {
+  const router = useRouter();
+
   return (
     <section className="bg-yellow-500 min-h-screen flex flex-col items-center justify-center text-center px-6 relative overflow-hidden">
       {/* Mali tekst gore lijevo */}
@@ -58,15 +61,15 @@ export default function ContactSection() {
 
       {/* Gumb */}
       <motion.button
-  whileHover={{ scale: 1.08 }}
-  whileTap={{ scale: 0.95 }}
-  transition={{ duration: 0.3 }}
-  className="mt-12 px-8 py-3 rounded-2xl bg-white text-black font-semibold shadow-lg 
-             hover:bg-black hover:text-white transition-colors duration-300"
->
-  POSTANIMO PARTNERI
-</motion.button>
-
+        onClick={() => router.push("/contact")}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ duration: 0.3 }}
+        className="mt-12 px-8 py-3 rounded-2xl bg-white text-black font-semibold shadow-lg 
+                   hover:bg-black hover:text-white transition-colors duration-300 cursor-pointer"
+      >
+        POSTANIMO PARTNERI
+      </motion.button>
     </section>
   );
 }

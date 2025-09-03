@@ -43,46 +43,54 @@ const Navbar: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 1, ease: 'easeInOut' } }}
           >
-            <div className="flex items-center space-x-4">
+            <div className="flex items-end space-x-4">
+              {/* Logo slovo K */}
               <motion.div
-                layoutId="logo"
-                initial={{ scale: 0.7, y: -30, opacity: 0 }}
-                animate={{ scale: 1, y: 0, opacity: 1 }}
-                exit={{ scale: 0.7, y: -20, opacity: 0 }}
-                transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
-              >
+  layoutId="logo"
+  initial={{ scale: 0.7, y: -20, opacity: 0 }}
+  animate={{ scale: 1, y: 0, opacity: 1 }}
+  exit={{ scale: 0.7, y: -20, opacity: 0 }}
+  transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }} // prije 1.2, sada 0.8
+>
+
                 <Image src="/logo/kavo-logo.png" alt="Logo" width={120} height={120} />
               </motion.div>
 
+              {/* Tekst "avo studio" */}
               <AnimatePresence>
                 {showText && (
-                  <motion.span
-                    initial={{ opacity: 0, y: 10 }}
+                  <motion.div
+                    initial={{ opacity: 0, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.8, ease: 'easeOut' }}
-                    className="text-[#FFBD00] text-3xl font-sans font-bold"
+                    transition={{ duration: 0.5, ease: 'easeOut' }}
+                    className="flex items-end"
                   >
-                    <Typewriter
-                      onInit={(tw) => {
-                        tw.typeString('avo studio')
-                          .pauseFor(1400)
-                          .deleteAll(50)
-                          .callFunction(() => {
-                            setShowText(false);
-                            setShowIntro(false);
-                          })
-                          .start();
-                      }}
-                      options={{ autoStart: true, delay: 100, cursor: '|', loop: false }}
-                    />
-                  </motion.span>
+                    <span className="text-[#FFBD00] text-5xl sm:text-6xl md:text-7xl font-bold">
+                      <Typewriter
+                        onInit={(tw) => {
+                          tw.typeString('avo studio')
+                            .pauseFor(800) // prije 1400, sad brže
+                            .deleteAll(30) // prije 50, brže brisanje
+                            .callFunction(() => {
+                              setShowText(false);
+                              setShowIntro(false);
+                            })
+                            .start();
+                        }}
+                        options={{ autoStart: true, delay: 50, cursor: '|' }} // prije 100, sad brže tipkanje
+                      />
+
+                    </span>
+                  </motion.div>
                 )}
               </AnimatePresence>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+
 
       {/* Navbar */}
       <nav
