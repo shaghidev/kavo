@@ -45,13 +45,21 @@ const ScrollCards: React.FC = () => {
     offset: ['start start', 'end end'],
   });
 
-  const yTransforms: MotionValue<string>[] = cards.map((_, i) =>
-    useTransform(scrollYProgress, [i / cards.length, (i + 1) / cards.length], ['100%', '0%'])
-  );
-
-  const opacityTransforms: MotionValue<number>[] = cards.map((_, i) =>
-    useTransform(scrollYProgress, [i / cards.length, (i + 1) / cards.length], [0, 1])
-  );
+  // Transformacije - definirane direktno u komponenti
+  const yTransforms = [
+    useTransform(scrollYProgress, [0 / cards.length, 1 / cards.length], ['100%', '0%']),
+    useTransform(scrollYProgress, [1 / cards.length, 2 / cards.length], ['100%', '0%']),
+    useTransform(scrollYProgress, [2 / cards.length, 3 / cards.length], ['100%', '0%']),
+    useTransform(scrollYProgress, [3 / cards.length, 4 / cards.length], ['100%', '0%']),
+  ];
+  
+  const opacityTransforms = [
+    useTransform(scrollYProgress, [0 / cards.length, 1 / cards.length], [0, 1]),
+    useTransform(scrollYProgress, [1 / cards.length, 2 / cards.length], [0, 1]),
+    useTransform(scrollYProgress, [2 / cards.length, 3 / cards.length], [0, 1]),
+    useTransform(scrollYProgress, [3 / cards.length, 4 / cards.length], [0, 1]),
+  ];
+  
 
   return (
     <section
@@ -102,7 +110,6 @@ const ScrollCards: React.FC = () => {
                 "
                 style={{ transform: `rotate(${card.rotate})` }}
               >
-                {/* Slika - veća, ~70% visine */}
                 <div className="w-full h-[70%] relative mb-2 sm:mb-3">
                   <Image
                     src={card.image}
@@ -111,8 +118,6 @@ const ScrollCards: React.FC = () => {
                     className="object-contain"
                   />
                 </div>
-
-                {/* Tekst - ostatak visine */}
                 <div className="flex flex-col items-center justify-center h-[30%]">
                   <h3 className="font-bold text-[#080D10] text-[clamp(1.3rem,2.5vw,2rem)] md:text-[clamp(2rem,2vw,2.5rem)]">
                     {card.title}

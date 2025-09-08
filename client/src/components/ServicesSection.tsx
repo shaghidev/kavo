@@ -1,3 +1,4 @@
+'use client';
 import React from "react";
 
 const services = [
@@ -10,32 +11,46 @@ const services = [
 
 const ServicesSection: React.FC = () => {
   return (
-    <section className="bg-gray-900 text-white py-24 px-6 md:px-20">
+    <section className="bg-[#080D10] text-[#EBECE7] py-20 px-4 sm:px-10 md:px-20 lg:px-32">
       {/* Naslov */}
-      <h2 className="text-6xl md:text-8xl font-extrabold text-yellow-400 text-center mb-6">
+      <h2 className="text-[clamp(2rem,6vw,6rem)] font-extrabold text-[#FFBD00] text-center mb-6 sm:mb-8 tracking-tight">
         ŠTO RADIMO
       </h2>
-      <p className="text-center max-w-xl mx-auto text-sm uppercase tracking-widest mb-16 text-gray-300">
+      <p className="text-center max-w-xl mx-auto text-[clamp(0.85rem,2vw,1rem)] uppercase tracking-widest mb-14 sm:mb-20 text-[#EBECE7]">
         Vjerujemo da poduzeća ne bi trebala samo postojati – već ostaviti dojam.
       </p>
 
       {/* Lista usluga */}
-      <div className="space-y-8 max-w-5xl mx-auto">
-        {services.map((service) => (
+      <div className="flex flex-col space-y-6 sm:space-y-8 max-w-5xl mx-auto">
+        {services.map((service, index) => (
           <div
             key={service.id}
-            className="flex justify-between items-center border-t border-gray-700 pt-6"
+            className={`
+              flex flex-col sm:flex-row justify-between items-start sm:items-center 
+              border-t border-[#EBECE7]/30 pt-6 sm:pt-8 pb-4 sm:pb-6 px-4 sm:px-10
+              transition-colors duration-300 cursor-pointer rounded-lg
+              hover:bg-[#EBECE7] hover:text-[#080D10]
+            `}
           >
             {/* Lijevi dio (ID) */}
-            <span className="text-sm text-gray-400">({service.id})</span>
+            <span className="text-xs sm:text-sm md:text-base opacity-70 mb-2 sm:mb-0">
+              ({service.id})
+            </span>
 
             {/* Središnji dio (naziv usluge) */}
-            <h3 className="text-3xl md:text-4xl font-bold">{service.title}</h3>
+            <h3
+              className={`text-[clamp(1.6rem,4vw,2.5rem)] font-bold mb-2 sm:mb-0 w-full
+                ${index % 2 === 0 ? "sm:text-left sm:ml-8" : "sm:text-right sm:mr-8"} 
+                text-center sm:text-inherit
+              `}
+            >
+              {service.title}
+            </h3>
 
             {/* Desni dio (link) */}
             <a
               href={service.link}
-              className="text-sm uppercase tracking-wide hover:text-yellow-400 transition"
+              className="text-xs sm:text-sm md:text-base uppercase tracking-wide transition-colors duration-300 hover:text-[#FFBD00] text-center sm:text-right"
             >
               Istraži
             </a>

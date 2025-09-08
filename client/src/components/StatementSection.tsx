@@ -12,7 +12,7 @@ interface TypewriterWordProps {
 function TypewriterWord({ text, delay = 0 }: TypewriterWordProps) {
   return (
     <motion.span
-      className="inline-block"
+      className="inline-block mr-2" // manji razmak između riječi
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.3, ease: 'easeOut' }}
@@ -38,16 +38,13 @@ function AccentUnderlineImage({
   height = 20,
 }: AccentUnderlineImageProps) {
   return (
-    <span className="relative inline-block">
+    <span className="relative inline-block mr-2">
       <span className="relative z-10">{children}</span>
       <img
         src={imageSrc}
         alt="underline"
-        className="absolute left-0 right-0 mx-auto bottom-0 w-full object-contain"
-        style={{
-          bottom: -offset,
-          height: `${height}px`,
-        }}
+        className="absolute left-0 right-0 mx-auto w-full object-contain"
+        style={{ bottom: -offset, height: `${height}px` }}
       />
     </span>
   );
@@ -66,15 +63,13 @@ function AccentCircleWord({
   offset = 0,
 }: AccentCircleWordProps) {
   return (
-    <span className="relative inline-block">
+    <span className="relative inline-block mr-2">
       <span className="relative z-10">{children}</span>
       <img
         src={imageSrc}
         alt="circle word"
-        className="absolute left-0 right-0 mx-auto bottom-0 w-full h-auto object-contain"
-        style={{
-          bottom: -offset,
-        }}
+        className="absolute left-0 right-0 mx-auto w-full h-auto object-contain"
+        style={{ bottom: -offset }}
       />
     </span>
   );
@@ -89,7 +84,7 @@ export default function StatementSection() {
         key="dizajn"
         imageSrc="/underline/words1.png"
         offset={8}
-        height={28} // malo veći za veći tekst
+        height={28} // malo veća slova → underline slika također veća
       >
         dizajn,
       </AccentUnderlineImage>,
@@ -101,9 +96,9 @@ export default function StatementSection() {
         offset={8}
         height={28}
       >
-        tehnologiju 
+        tehnologiju
       </AccentUnderlineImage>,
-      '  i',
+      ' i',
     ],
     ['stvaranje'],
     ['digitalnih'],
@@ -123,15 +118,15 @@ export default function StatementSection() {
   let delayCounter = 0;
 
   return (
-    <section className="relative isolate flex items-center justify-center min-h-[80vh] w-full bg-[#EBECE7] px-6 py-16">
-      <div className="mx-auto w-full max-w-[780px] text-center pt-8">
-        <h1 className="font-extrabold tracking-tight leading-[1.05] text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-black">
+    <section className="relative isolate flex items-center justify-center min-h-screen w-full bg-[#EBECE7] px-6">
+      <div className="mx-auto w-full max-w-[780px] text-center">
+        <h1 className="font-extrabold tracking-tight leading-[1.1] text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-black">
           {lines.map((line, i) => (
-            <span key={i} className="block">
+            <span key={i} className="block mb-6"> {/* malo manji razmak između redova */}
               {line.map((word, j) => {
                 delayCounter += 0.15;
                 if (typeof word === 'string') {
-                  return <TypewriterWord key={j} text={` ${word}`} delay={delayCounter} />;
+                  return <TypewriterWord key={j} text={word} delay={delayCounter} />;
                 }
                 return (
                   <motion.span
