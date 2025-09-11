@@ -2,12 +2,13 @@
 import React from "react";
 
 const services = [
-  { id: "001", title: "ISTRAŽIVANJE", link: "#" },
-  { id: "002", title: "STRATEGIJA", link: "#" },
-  { id: "003", title: "WEB DIZAJN", link: "#" },
-  { id: "004", title: "WEB DEVELOPMENT", link: "#" },
-  { id: "005", title: "ODRŽAVANJE", link: "#" },
+  { id: "001", title: "ISTRAŽIVANJE", link: "/istrazivanje" },
+  { id: "002", title: "STRATEGIJA", link: "/strategija" },
+  { id: "003", title: "WEB DIZAJN", link: "/web" },
+  { id: "004", title: "WEB DEVELOPMENT", link: "/development" },
+  { id: "005", title: "ODRŽAVANJE", link: "/odrzavanje" },
 ];
+
 
 const ServicesSection: React.FC = () => {
   return (

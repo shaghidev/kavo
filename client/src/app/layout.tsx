@@ -4,8 +4,8 @@ import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer'; 
 
 export const metadata = {
-  title: 'Moj Portfolio',
-  description: 'Portfolio stranica',
+  title: 'Kavo',
+  description: 'dizajn i tehnologija',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
