@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -12,7 +12,6 @@ const fadeInUp = {
 const IstrazivanjePage: React.FC = () => {
   return (
     <main className="bg-[#FFBD00] text-[#080D10] min-h-screen pt-32 md:pt-40 flex flex-col items-center">
-
       {/* Naslov */}
       <motion.h1
         initial="hidden"
@@ -21,7 +20,7 @@ const IstrazivanjePage: React.FC = () => {
         variants={fadeInUp}
         className="text-[clamp(2.5rem,6vw,6rem)] font-extrabold mb-6 tracking-tight text-center px-4"
       >
-        Web dizajn
+        Web development
       </motion.h1>
 
       {/* Podnaslov */}
@@ -32,7 +31,8 @@ const IstrazivanjePage: React.FC = () => {
         variants={fadeInUp}
         className="uppercase text-sm md:text-base font-semibold mb-4 w-full text-center px-4 md:px-8 leading-[127.3%] tracking-[0.5px]"
       >
-        Web dizajn nije samo lijep izgled – to je način da ispričate priču o svom brendu i ostavite dobar prvi dojam kod posjetitelja.
+        Nakon što završimo s dizajnom, prelazimo na kodiranje. Pretvaramo vizual
+        u stranicu koja savršeno radi na svim uređajima i preglednicima.
       </motion.p>
 
       {/* Border */}
@@ -40,11 +40,10 @@ const IstrazivanjePage: React.FC = () => {
 
       {/* 1. Slika → Tekst */}
       <section className="flex flex-col md:flex-row items-center mb-10 w-screen md:w-full overflow-hidden min-h-[700px]">
-
         {/* Slika */}
         <div className="flex-1 flex justify-center mb-6 md:mb-0">
           <Image
-            src="/dizajn/WebDizajn1.png"
+            src="/development/development1.png"
             alt="Ideja ilustracija"
             width={500}
             height={530}
@@ -65,10 +64,14 @@ const IstrazivanjePage: React.FC = () => {
             style={{ backgroundImage: "url('/istrazivanje/bg1.png')" }}
           />
           <div className="relative p-10 text-[#080D10]">
+            <h2 className="text-[clamp(1.5rem,4vw,3rem)] font-bold uppercase mb-4">
+              BRZINA I SIGURNOST
+            </h2>
             <p className="text-[clamp(1rem,2.2vw,1.5rem)] leading-[127.3%] tracking-[0.5px]">
-              Naš cilj je da vaša stranica bude jednostavna za korištenje i ugodna za pregledavanje. 
-              Biramo boje, tipografiju i vizualne elemente koji najbolje predstavljaju vas, ali uvijek 
-              razmišljamo i o tome kako će se posjetitelji kretati kroz stranicu. Želimo da im sve bude jasno, logično i lako dostupno.
+              Brza stranica znači zadovoljan posjetitelj, a sigurna stranica
+              znači miran vlasnik. Zato pazimo da se vaša stranica učitava u
+              sekundi i da je zaštićena najboljim praksama. To znači manje
+              čekanja za korisnike i više povjerenja u vaš brend.
             </p>
           </div>
         </motion.div>
@@ -76,7 +79,6 @@ const IstrazivanjePage: React.FC = () => {
 
       {/* 2. Tekst → Slika */}
       <section className="flex flex-col md:flex-row items-center justify-between mb-10 gap-15 w-full overflow-hidden min-h-[750px] md:min-h-[850px] lg:min-h-[950px]">
-
         {/* Tekst s pozadinskom slikom */}
         <motion.div
           initial="hidden"
@@ -90,11 +92,16 @@ const IstrazivanjePage: React.FC = () => {
             style={{ backgroundImage: "url('/istrazivanje/bg2.png')" }}
           />
           <div className="relative p-10 text-[#080D10]">
-            <h2 className="text-[clamp(1.5rem,4vw,3rem)] font-bold uppercase mb-4">Responsivnost</h2>
+            <h2 className="text-[clamp(1.5rem,4vw,3rem)] font-bold uppercase mb-4">
+              FLEKSIBILNOST
+            </h2>
             <p className="text-[clamp(1rem,2.2vw,1.5rem)] leading-[127.3%] tracking-[0.5px]">
-              Većina ljudi danas pretražuje internet putem mobitela, pa je važno da stranica izgleda odlično 
-              na svakom ekranu. Zato radimo responsivan dizajn – onaj koji se automatski prilagođava mobitelu, 
-              tabletu ili računalu. Tako vaši klijenti uvijek dobivaju najbolje iskustvo, bez obzira odakle dolaze.
+              Svaka tvrtka ima različite ciljeve, zato nudimo opcije razvoja
+              koje odgovaraju vašem budžetu i vremenskom okviru. Ako trebate
+              gotovu stranicu brzo i povoljno, koristimo provjerene predloške.
+              Ako želite jedinstveno rješenje i potpunu kontrolu – razvijamo
+              stranicu potpuno od nule, prilagođenu baš vama. U oba slučaja
+              dobit ćete funkcionalnu i modernu web stranicu spremnu za rast.
             </p>
           </div>
         </motion.div>
@@ -102,7 +109,7 @@ const IstrazivanjePage: React.FC = () => {
         {/* Slika */}
         <div className="flex-1 flex justify-center">
           <Image
-            src="/dizajn/WebDizajn2.png"
+            src="/development/development2.png"
             alt="Klijent ilustracija"
             width={500}
             height={530}
@@ -113,11 +120,10 @@ const IstrazivanjePage: React.FC = () => {
 
       {/* 3. Slika → Tekst */}
       <section className="flex flex-col md:flex-row items-center justify-between mb-10 gap-15 w-full overflow-hidden min-h-[750px] md:min-h-[850px] lg:min-h-[950px]">
-
         {/* Slika */}
         <div className="flex-1 flex justify-center mb-6 md:mb-0">
           <Image
-            src="/dizajn/WebDizajn3.png"
+            src="/development/development3.png"
             alt="Konkurencija ilustracija"
             width={500}
             height={530}
@@ -138,47 +144,56 @@ const IstrazivanjePage: React.FC = () => {
             style={{ backgroundImage: "url('/istrazivanje/bg3.png')" }}
           />
           <div className="relative p-10 text-[#080D10]">
-            <h2 className="text-[clamp(1.5rem,4vw,3rem)] font-bold uppercase mb-4">Za ljude i tražilice</h2>
+            <h2 className="text-[clamp(1.5rem,4vw,3rem)] font-bold uppercase mb-4">
+              testiranje
+            </h2>
             <p className="text-[clamp(1rem,2.2vw,1.5rem)] leading-[127.3%] tracking-[0.5px]">
-              Dobar dizajn nije samo za ljude – voli ga i Google. Kada je stranica pregledna, brza i 
-              jednostavna za korištenje, to pomaže i boljem rangiranju na tražilicama. Zato pazimo da 
-              vaša stranica bude i lijepa i funkcionalna, ali i optimizirana tako da vas potencijalni klijenti lakše pronađu.
+              Nakon programiranja provodimo detaljno testiranje kako bismo
+              provjerili radi li sve ispravno na različitim uređajima i
+              preglednicima. Posebnu pažnju posvećujemo brzini učitavanja i SEO
+              optimizaciji, jer želimo da vaša stranica bude što bolje rangirana
+              na Googleu.
             </p>
           </div>
         </motion.div>
       </section>
 
-      {/* Zaključak */}
-      <motion.footer
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0, transition: { duration: 0.8 } }}
-        viewport={{ once: false }}
-        className="w-3/4 mx-auto mb-10 text-lg md:text-xl lg:text-2xl mt-0 font-semibold text-center leading-[140%] tracking-[0.5px]"
-      >
-        <div className="relative p-10 text-[#080D10] bg-[#FFBD00] rounded-lg">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Dizajn koji donosi rezultate</h2>
-          <p>
-            Na kraju, web dizajn za nas nije samo stvar vizualnog dojma. On ima zadatak pomoći vam da ostvarite 
-            svoje ciljeve – bilo da želite privući nove klijente, prodati proizvod ili jednostavno predstaviti svoj 
-            brend na najbolji način. Naš zadatak je stvoriti dizajn koji će raditi za vas, a ne samo lijepo izgledati.
-          </p>
+      {/* 4. Slika → Tekst */}
+      <section className="flex flex-col md:flex-row items-center mb-10 w-screen md:w-full overflow-hidden min-h-[700px]">
+        {/* Slika */}
+        <div className="flex-1 flex justify-center mb-6 md:mb-0">
+          <Image
+            src="/development/development4.png"
+            alt="Ideja ilustracija"
+            width={500}
+            height={530}
+            className="w-full max-w-lg h-auto"
+          />
         </div>
-      </motion.footer>
 
-      {/* Dodatna slika na dno */}
-<div className="w-full relative h-[200px] sm:h-[300px] md:h-[400px] mt-10">
-  <Image
-    src="/dizajn/WebDizajn4.png"
-    alt="Zadnja slika"
-    fill
-    style={{ objectFit: "cover" }}
-    sizes="(max-width: 768px) 100vw, 
-           (max-width: 1024px) 100vw, 
-           100vw"
-  />
-</div>
-
-
+        {/* Tekst s pozadinskom slikom */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false }}
+          variants={fadeInUp}
+          className="relative flex-1 max-w-xl mx-auto md:ml-16 z-10"
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center rounded-lg"
+            style={{ backgroundImage: "url('/istrazivanje/bg1.png')" }}
+          />
+          <div className="relative p-10 text-[#080D10]">
+            <h2 className="text-[clamp(1.5rem,4vw,3rem)] font-bold uppercase mb-4">
+              Pokretanje i podrška
+            </h2>
+            <p className="text-[clamp(1rem,2.2vw,1.5rem)] leading-[127.3%] tracking-[0.5px]">
+              Kada je stranica spremna, pomažemo vam oko postavljanja na hosting i povezivanja s domenom, 
+              a po potrebi radimo i obuku kako biste samostalno mogli upravljati sadržajem.
+            </p>
+          </div>
+        </motion.div>
+      </section>
     </main>
   );
 };
