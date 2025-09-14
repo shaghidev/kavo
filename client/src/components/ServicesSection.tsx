@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 const services = [
   { id: "001", title: "ISTRAŽIVANJE", link: "/istrazivanje" },
-  { id: "002", title: "STRATEGIJA", link: "/strategija" },
+  { id: "002", title: "BRANDING", link: "/branding" },
   { id: "003", title: "WEB DIZAJN", link: "/web" },
   { id: "004", title: "WEB DEVELOPMENT", link: "/development" },
   { id: "005", title: "ODRŽAVANJE", link: "/odrzavanje" },

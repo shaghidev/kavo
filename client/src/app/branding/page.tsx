@@ -20,7 +20,7 @@ const IstrazivanjePage: React.FC = () => {
         variants={fadeInUp}
         className="text-[clamp(2.5rem,6vw,6rem)] font-extrabold mb-6 tracking-tight text-center px-4"
       >
-        Web development
+        BRANDING & DIZAJN
       </motion.h1>
 
       {/* Podnaslov */}
@@ -31,8 +31,8 @@ const IstrazivanjePage: React.FC = () => {
         variants={fadeInUp}
         className="uppercase text-sm md:text-base font-semibold mb-4 w-full text-center px-4 md:px-8 leading-[127.3%] tracking-[0.5px]"
       >
-        Nakon što završimo s dizajnom, prelazimo na kodiranje. Pretvaramo vizual
-        u stranicu koja savršeno radi na svim uređajima i preglednicima.
+        BrAnding je temelj svakog uspješnog poslovanja. To nije samo logo, boja ili tipografija 
+        – to je emocija koju vaš brend budi, priča koju priča i vrijednosti koje prenosi. 
       </motion.p>
 
       {/* Border */}

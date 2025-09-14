@@ -166,17 +166,17 @@ const IstrazivanjePage: React.FC = () => {
       </motion.footer>
 
       {/* Dodatna slika na dno */}
-<div className="w-full relative h-[200px] sm:h-[300px] md:h-[400px] mt-10">
+<div className="w-full mx-auto relative h-[100px] sm:h-[400px] md:h-[600px] lg:h-[600px] mt-10">
   <Image
     src="/dizajn/WebDizajn4.png"
     alt="Zadnja slika"
     fill
-    style={{ objectFit: "cover" }}
-    sizes="(max-width: 768px) 100vw, 
-           (max-width: 1024px) 100vw, 
-           100vw"
+    style={{ objectFit: "cover", objectPosition: "center" }}
   />
 </div>
+
+
+
 
 
     </main>
