@@ -8,11 +8,13 @@ import ServicesSection from '@/components/ServicesSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import ContactSection from '@/components/ContactSection';
 
+import ScrollToHash from '@/components/ScrollToHash';
 
 
 export default function HomePage() {
   return (
-    <main className="bg-[#080D10] text-white scroll-smooth">
+    <main className="bg-[#080D10] text-white scroll-smooth">  
+      <ScrollToHash />
       <section id="hero">
         <Hero />
       </section>

@@ -82,7 +82,7 @@ const IstrazivanjePage: React.FC = () => {
         >
           <div className="w-[40vw] max-w-[500px] aspect-[589/623] relative">
             <Image
-              src="/odrzavanje/odrzavanje1.png"
+              src="/odrzavanje/Odrzavanje1.png"
               alt="Ideja ilustracija"
               fill
               className="object-contain"
@@ -95,7 +95,7 @@ const IstrazivanjePage: React.FC = () => {
         <div className="md:hidden mt-6 w-full flex justify-center">
           <div className="w-full max-w-[300px] aspect-[589/623] relative">
             <Image
-              src="/odrzavanje/odrzavanje1.png"
+              src="/odrzavanje/Odrzavanje1.png"
               alt="Ideja ilustracija"
               fill
               className="object-contain"
@@ -139,7 +139,7 @@ const IstrazivanjePage: React.FC = () => {
           className="flex-1 flex justify-center"
         >
           <Image
-            src="/odrzavanje/odrzavanje2.png"
+            src="/odrzavanje/Odrzavanje2.png"
             alt="Klijent ilustracija"
             width={500}
             height={530}
@@ -184,7 +184,7 @@ const IstrazivanjePage: React.FC = () => {
           className="flex-1 flex justify-center"
         >
           <Image
-            src="/odrzavanje/odrzavanje3.png"
+            src="/odrzavanje/Odrzavanje3.png"
             alt="Konkurencija ilustracija"
             width={500}
             height={530}
@@ -197,7 +197,7 @@ const IstrazivanjePage: React.FC = () => {
       <section className="w-full flex justify-center items-center my-20">
         <div className="w-full max-w-3xl aspect-[589/623] relative">
           <Image
-            src="/odrzavanje/odrzavanje4.png"
+            src="/odrzavanje/Odrzavanje4.png"
             alt="Strategija ilustracija"
             fill
             className="object-contain"
