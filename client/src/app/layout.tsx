@@ -11,11 +11,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="hr">
-      <body className="bg-[#080D10] text-white scroll-smooth">
+      <body className="bg-[#080D10] text-white scroll-smooth w-full min-h-screen">
         <Navbar />
-        {children}
+        <main className="w-full">{children}</main>
         <Footer />
-
       </body>
     </html>
   );

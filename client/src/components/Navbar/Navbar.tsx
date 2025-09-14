@@ -89,8 +89,8 @@ const Navbar: React.FC = () => {
         className="fixed top-0 left-0 right-0 z-50 w-full transition-colors duration-300"
         style={{ color: textColor, backgroundColor: 'transparent' }}
       >
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center h-16 w-full max-w-full">
+        <div className="container mx-auto px-6 md:px-8 lg:px-12">
+          <div className="flex justify-between items-center h-20 md:h-24 w-full max-w-full">
             {/* Logo */}
             <motion.div
               layoutId="logo"
@@ -100,17 +100,17 @@ const Navbar: React.FC = () => {
               className="flex-shrink-0"
             >
               <Link href="/">
-                <Image src="/logo/kavo-logo.png" alt="Logo" width={50} height={50} />
+                <Image src="/logo/kavo-logo.png" alt="Logo" width={60} height={60} />
               </Link>
             </motion.div>
 
             {/* Desktop menu */}
-            <div className="hidden md:flex items-center space-x-6 xl:space-x-8 text-sm xl:text-base">
+            <div className="hidden md:flex items-center space-x-8 xl:space-x-12 text-base xl:text-lg uppercase tracking-wide">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="transition-colors duration-300"
+                  className="transition-colors duration-300 hover:text-[#FFBD00]"
                   style={{ color: textColor }}
                 >
                   {link.label}
@@ -122,14 +122,19 @@ const Navbar: React.FC = () => {
             <div className="md:hidden flex items-center">
               <button
                 onClick={toggleMobileMenu}
-                className="focus:outline-none p-2 rounded-md transition"
+                className="focus:outline-none p-4 rounded-md transition-all duration-300 hover:bg-white/10"
                 aria-label="Toggle menu"
               >
-                <svg className="w-6 h-6" fill="none" stroke={textColor} viewBox="0 0 24 24">
+                <svg 
+                  className="w-7 h-7" 
+                  fill="none" 
+                  stroke={textColor} 
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
                     d={
                       mobileMenuOpen
                         ? 'M6 18L18 6M6 6l12 12'
@@ -150,14 +155,14 @@ const Navbar: React.FC = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden w-full bg-black"
+              className="md:hidden overflow-hidden w-full bg-[#080D10]/95 backdrop-blur-sm border-t border-gray-800"
             >
-              <div className="flex flex-col w-full px-4 py-3 space-y-2">
+              <div className="flex flex-col w-full px-6 py-8 space-y-6 uppercase tracking-wide">
                 {links.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="transition-colors duration-300 w-full"
+                    className="transition-colors duration-300 w-full text-lg text-center hover:text-[#FFBD00]"
                     style={{ color: textColor }}
                     onClick={() => setMobileMenuOpen(false)}
                   >

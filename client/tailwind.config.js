@@ -6,8 +6,13 @@ module.exports = {
       "./components/**/*.{js,ts,jsx,tsx}"
     ],
     theme: {
-      extend: {},
+      extend: {
+        screens: {
+          'xs': '390px',
+          'sm': '520px',  // update this or add new breakpoint
+          // ...existing breakpoints
+        },
+      },
     },
     plugins: [],
   };
-  

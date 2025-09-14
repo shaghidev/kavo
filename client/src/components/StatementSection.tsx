@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import React from 'react';
 
 // --- Typewriter Word ---
@@ -36,16 +37,37 @@ function AccentUnderlineImage({
   imageSrc,
   offset = 6,
   height = 20,
-}: AccentUnderlineImageProps) {
+  delay = 0,
+}: AccentUnderlineImageProps & { delay?: number }) {
   return (
     <span className="relative inline-block mr-2">
       <span className="relative z-10">{children}</span>
-      <img
-        src={imageSrc}
-        alt="underline"
-        className="absolute left-0 right-0 mx-auto w-full object-contain"
-        style={{ bottom: -offset, height: `${height}px` }}
-      />
+      <motion.div
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        transition={{
+          delay: delay,
+          duration: 0.8,
+          ease: 'easeInOut',
+        }}
+        viewport={{ once: false, amount: 0.6 }}
+        style={{
+          position: 'absolute',
+          left: 0,
+          bottom: -offset,
+          width: '100%',
+          height: `${height}px`,
+          transformOrigin: 'left',
+        }}
+      >
+        <Image
+          src={imageSrc}
+          alt="underline"
+          fill
+          className="object-contain"
+          priority
+        />
+      </motion.div>
     </span>
   );
 }
@@ -55,28 +77,48 @@ interface AccentCircleWordProps {
   children: React.ReactNode;
   imageSrc: string;
   offset?: number;
+  delay?: number; // Add delay prop
 }
 
 function AccentCircleWord({
   children,
   imageSrc,
   offset = 0,
+  delay = 0, // Add delay parameter
 }: AccentCircleWordProps) {
   return (
     <span className="relative inline-block mr-2">
       <span className="relative z-10">{children}</span>
-      <img
-        src={imageSrc}
-        alt="circle word"
-        className="absolute left-0 right-0 mx-auto w-full h-auto object-contain"
+      <motion.div
+        className="absolute left-0 right-0 mx-auto w-full h-full"
         style={{ bottom: -offset }}
-      />
+        initial={{ scale: 0, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        transition={{
+          delay: delay,
+          duration: 0.8,
+          ease: 'easeOut',
+        }}
+        viewport={{ once: false, amount: 0.6 }}
+      >
+        <Image
+          src={imageSrc}
+          alt="circle word"
+          fill
+          className="object-contain"
+          priority
+        />
+      </motion.div>
     </span>
   );
 }
 
 // --- Statement Section ---
 export default function StatementSection() {
+  const textDelay = 0.15; // delay between words
+  const underlineStartDelay = 2; // when to start underline animations
+  const underlineDelay = 0.8; // delay between underlines
+
   const lines: (React.ReactNode | string)[][] = [
     ['Volimo'],
     [
@@ -84,7 +126,8 @@ export default function StatementSection() {
         key="dizajn"
         imageSrc="/underline/words1.png"
         offset={8}
-        height={28} // malo veća slova → underline slika također veća
+        height={28}
+        delay={underlineStartDelay}
       >
         dizajn,
       </AccentUnderlineImage>,
@@ -94,12 +137,13 @@ export default function StatementSection() {
         key="tehno"
         imageSrc="/underline/words2.png"
         offset={8}
-        height={28}
-      >
-        tehnologiju
-      </AccentUnderlineImage>,
-      ' i',
-    ],
+          height={28}
+          delay={underlineStartDelay + underlineDelay}
+        >
+          tehnologiju
+        </AccentUnderlineImage>,
+        ' i',
+      ],
     ['stvaranje'],
     ['digitalnih'],
     [
@@ -107,6 +151,7 @@ export default function StatementSection() {
         key="iskustva"
         imageSrc="/underline/words3.png"
         offset={0}
+        delay={underlineStartDelay + underlineDelay * 2} // Add delay after underlines
       >
         iskustava
       </AccentCircleWord>,
@@ -118,13 +163,13 @@ export default function StatementSection() {
   let delayCounter = 0;
 
   return (
-    <section className="relative isolate flex items-center justify-center min-h-screen w-full bg-[#EBECE7] px-6">
-      <div className="mx-auto w-full max-w-[780px] text-center">
-        <h1 className="font-extrabold tracking-tight leading-[1.1] text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-black">
+    <section className="relative isolate flex items-center justify-center h-screen w-full bg-[#EBECE7] px-6">
+      <div className="mx-auto w-full max-w-[780px] text-center py-32 md:py-40">
+        <h1 className="font-extrabold tracking-tight leading-[0.9] text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#080D10]">
           {lines.map((line, i) => (
-            <span key={i} className="block mb-6"> {/* malo manji razmak između redova */}
+            <span key={i} className="block mb-3">
               {line.map((word, j) => {
-                delayCounter += 0.15;
+                delayCounter += textDelay; // Use textDelay constant instead of hardcoded 0.15
                 if (typeof word === 'string') {
                   return <TypewriterWord key={j} text={word} delay={delayCounter} />;
                 }

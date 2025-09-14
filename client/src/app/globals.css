@@ -8,6 +8,19 @@
   --foreground: #171717;
 }
 
+.container {
+  @apply max-w-7xl mx-auto px-6;
+}
+
+.heading {
+  @apply text-2xl md:text-4xl font-bold tracking-tight mb-6;
+}
+
+html, body, #__next {
+  overflow-x: hidden; /* horizontalno overflow */
+}
+
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

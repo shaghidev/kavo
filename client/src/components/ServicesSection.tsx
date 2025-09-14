@@ -1,5 +1,7 @@
 'use client';
-import React from "react";
+
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const services = [
   { id: "001", title: "ISTRAŽIVANJE", link: "/istrazivanje" },
@@ -9,11 +11,16 @@ const services = [
   { id: "005", title: "ODRŽAVANJE", link: "/odrzavanje" },
 ];
 
-
 const ServicesSection: React.FC = () => {
+  const [focusedId, setFocusedId] = useState<string | null>(null);
+  const router = useRouter();
+
+  const handleServiceClick = (link: string) => {
+    router.push(link);
+  };
+
   return (
     <section className="bg-[#080D10] text-[#EBECE7] py-20 px-4 sm:px-10 md:px-20 lg:px-32">
-      {/* Naslov */}
       <h2 className="text-[clamp(2rem,6vw,6rem)] font-extrabold text-[#FFBD00] text-center mb-6 sm:mb-8 tracking-tight">
         ŠTO RADIMO
       </h2>
@@ -21,42 +28,107 @@ const ServicesSection: React.FC = () => {
         Vjerujemo da poduzeća ne bi trebala samo postojati – već ostaviti dojam.
       </p>
 
-      {/* Lista usluga */}
       <div className="flex flex-col space-y-6 sm:space-y-8 max-w-5xl mx-auto">
         {services.map((service, index) => (
           <div
             key={service.id}
             className={`
-              flex flex-col sm:flex-row justify-between items-start sm:items-center 
+              relative flex flex-col sm:flex-row justify-between items-start sm:items-center 
               border-t border-[#EBECE7]/30 pt-6 sm:pt-8 pb-4 sm:pb-6 px-4 sm:px-10
-              transition-colors duration-300 cursor-pointer rounded-lg
-              hover:bg-[#EBECE7] hover:text-[#080D10]
+              transition-all duration-500 ease-in-out cursor-pointer rounded-lg
+              transform-gpu
+              ${focusedId === service.id 
+                ? 'bg-[#EBECE7] text-[#080D10] scale-105 shadow-2xl border-[#FFBD00]/50' 
+                : 'hover:bg-[#EBECE7] hover:text-[#080D10] hover:scale-[1.02] hover:shadow-xl'
+              }
+              group
             `}
+            onMouseEnter={() => setFocusedId(service.id)}
+            onMouseLeave={() => setFocusedId(null)}
+            onFocus={() => setFocusedId(service.id)}
+            onBlur={() => setFocusedId(null)}
+            onClick={() => handleServiceClick(service.link)}
+            tabIndex={0}
+            role="button"
+            aria-label={`Otvori ${service.title} stranicu`}
           >
-            {/* Lijevi dio (ID) */}
-            <span className="text-xs sm:text-sm md:text-base opacity-70 mb-2 sm:mb-0">
+            {/* Overlay sada samo boja #EBECE7 */}
+            <div 
+              className={`
+                absolute inset-0 rounded-lg
+                transition-all duration-500 ease-in-out
+                ${focusedId === service.id 
+                  ? 'bg-[#EBECE7]' 
+                  : 'bg-transparent group-hover:bg-[#EBECE7]'
+                }
+              `} 
+            />
+
+            <span 
+              className={`
+                relative z-10 text-xs sm:text-sm md:text-base mb-2 sm:mb-0
+                transition-all duration-300
+                ${focusedId === service.id 
+                  ? 'opacity-100 text-[#080D10] font-semibold' 
+                  : 'opacity-70 group-hover:opacity-100 group-hover:text-[#080D10]'
+                }
+              `}
+            >
               ({service.id})
             </span>
 
-            {/* Središnji dio (naziv usluge) */}
             <h3
-              className={`text-[clamp(1.6rem,4vw,2.5rem)] font-bold mb-2 sm:mb-0 w-full
+              className={`
+                relative z-10 text-[clamp(1.6rem,4vw,2.5rem)] font-bold mb-2 sm:mb-0 w-full
+                transition-all duration-500 ease-out
                 ${index % 2 === 0 ? "sm:text-left sm:ml-8" : "sm:text-right sm:mr-8"} 
                 text-center sm:text-inherit
+                ${focusedId === service.id 
+                  ? 'transform translate-y-[-2px] text-[#080D10]' 
+                  : 'group-hover:transform group-hover:translate-y-[-2px] group-hover:text-[#080D10]'
+                }
               `}
             >
               {service.title}
             </h3>
 
-            {/* Desni dio (link) */}
-            <a
-              href={service.link}
-              className="text-xs sm:text-sm md:text-base uppercase tracking-wide transition-colors duration-300 hover:text-[#FFBD00] text-center sm:text-right"
+            <span
+              className={`
+                relative z-10 text-xs sm:text-sm md:text-base uppercase tracking-wide 
+                transition-all duration-300 text-center sm:text-right
+                ${focusedId === service.id 
+                  ? 'text-[#FFBD00] font-bold transform scale-110' 
+                  : 'group-hover:text-[#FFBD00] group-hover:font-semibold group-hover:scale-105'
+                }
+              `}
             >
               Istraži
-            </a>
+            </span>
+
+            <div 
+              className={`
+                absolute bottom-0 left-4 sm:left-10 right-4 sm:right-10 h-0.5
+                transition-all duration-500 ease-in-out
+                ${focusedId === service.id 
+                  ? 'bg-[#FFBD00] scale-x-100' 
+                  : 'bg-[#EBECE7]/30 scale-x-0 group-hover:bg-[#FFBD00] group-hover:scale-x-100'
+                }
+              `} 
+            />
           </div>
         ))}
+      </div>
+
+      <div className="flex justify-center mt-16">
+        <div 
+          className={`
+            w-2 h-2 rounded-full transition-all duration-1000
+            ${focusedId 
+              ? 'bg-[#FFBD00] animate-pulse scale-150' 
+              : 'bg-[#EBECE7]/50 scale-100'
+            }
+          `} 
+        />
       </div>
     </section>
   );
