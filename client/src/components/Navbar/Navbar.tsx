@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 import IntroOverlay from './IntroOverlay';
 
 const links = [
@@ -17,19 +18,23 @@ const Navbar: React.FC = () => {
   const [showIntro, setShowIntro] = useState(true);
   const [isYellowSection, setIsYellowSection] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
   useEffect(() => {
+    // Ako smo na contact stranici, ne pratimo žute sekcije
+    if (pathname === '/contact') return;
+
     const yellowSections = [
-      document.querySelector('#contact'),
       document.querySelector('#scrollcards'),
+      document.querySelector('#contact'),
     ].filter(Boolean) as HTMLElement[];
 
     if (!yellowSections.length) return;
 
     const handleScroll = () => {
-      const scrollY = window.scrollY + window.innerHeight / 2; // sredina viewporta
+      const scrollY = window.scrollY + window.innerHeight / 2;
       let inYellow = false;
 
       for (const section of yellowSections) {
@@ -46,13 +51,25 @@ const Navbar: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // provjeri odmah na load
-
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [pathname]);
 
-  const logoSrc = isYellowSection ? '/logo/logo-crni.png' : '/logo/kavo-logo.png';
-  const textColor = isYellowSection ? 'black' : 'white';
+  // Odredi logo i boju teksta
+  let logoSrc = '/logo/kavo-logo.png';
+  let textColor: 'white' | 'black' = 'white';
+
+  if (pathname === '/contact') {
+    // Na contact stranici logo je originalni
+    logoSrc = '/logo/kavo-logo.png';
+    textColor = 'black';
+  } else if (isYellowSection) {
+    logoSrc = '/logo/logo-crni.png';
+    textColor = 'black';
+  } else if (pathname !== '/') {
+    logoSrc = '/logo/logo-crni.png';
+    textColor = 'black';
+  }
 
   return (
     <LayoutGroup>

@@ -11,7 +11,7 @@ const fadeInUp = {
 
 const IstrazivanjePage: React.FC = () => {
   return (
-    <main className="bg-[#FFBD00] text-[#080D10] min-h-screen pt-32 md:pt-40 flex flex-col items-center">
+    <main className="bg-[#FFBD00] text-[#080D10] min-h-screen pt-32 md:pt-40 flex flex-col items-center overflow-x: hidden; ">
 
       {/* Naslov */}
       <motion.h1

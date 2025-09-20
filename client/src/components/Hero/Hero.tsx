@@ -26,18 +26,39 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.8 }}
-            className="flex flex-col items-center md:items-end text-white text-[10px] xs:text-[11px] sm:text-[12px] md:text-[14px] lg:text-[12px] leading-relaxed text-center md:text-right mb-4 md:mb-16 lg:mb-20 xl:mb-24 2xl:mb-32"
+            className="flex flex-col text-white text-[10px] xs:text-[11px] sm:text-[12px] md:text-[14px] lg:text-[12px] leading-relaxed mb-4 md:mb-16 lg:mb-20 xl:mb-24 2xl:mb-32 space-y-2 max-w-[200px] sm:max-w-[250px] md:max-w-[280px] lg:max-w-[300px] xl:max-w-[320px] mx-auto md:ml-auto md:mr-0"
           >
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="max-w-[250px] sm:max-w-[300px] md:max-w-[350px] lg:max-w-[400px] xl:max-w-[450px] 2xl:max-w-[500px] uppercase tracking-wide"
+              className="uppercase tracking-wide text-center md:text-right"
             >
-              Od elegantnog dizajna <br />
-              do funkcionalnih web stranica, <br />
-              pomažemo vašem brendu da se <br />
-              istakne i postigne rezultate.
+              OD ELEGANTNOG DIZAJNA
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              className="uppercase tracking-wide text-center md:text-left"
+            >
+              DO FUNKCIONALNIH WEB STRANICA,
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="uppercase tracking-wide text-center md:text-left"
+            >
+              POMAŽEMO VAŠEM BRENDU DA SE
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+              className="uppercase tracking-wide text-center md:text-right"
+            >
+              ISTAKNE I POSTIGNE REZULTATE.
             </motion.p>
           </motion.div>
         </div>

@@ -4,11 +4,10 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const services = [
-  { id: "001", title: "ISTRAŽIVANJE", link: "/istrazivanje" },
-  { id: "002", title: "BRANDING", link: "/branding" },
-  { id: "003", title: "WEB DIZAJN", link: "/web" },
+  { id: "001", title: "BRANDING", link: "/branding" },
+  { id: "002", title: "GRAFIČKI DIZAJN", link: "/graficki-dizajn" },
+  { id: "003", title: "WEB DIZAJN", link: "/web-dizajn" },
   { id: "004", title: "WEB DEVELOPMENT", link: "/development" },
-  { id: "005", title: "ODRŽAVANJE", link: "/odrzavanje" },
 ];
 
 const ServicesSection: React.FC = () => {
@@ -33,9 +32,9 @@ const ServicesSection: React.FC = () => {
           <div
             key={service.id}
             className={`
-              relative flex flex-col sm:flex-row justify-between items-start sm:items-center 
+              relative flex flex-row justify-between items-center 
               border-t border-[#EBECE7]/30 pt-6 sm:pt-8 pb-4 sm:pb-6 px-4 sm:px-10
-              transition-all duration-500 ease-in-out cursor-pointer rounded-lg
+              transition-all duration-500 ease-in-out cursor-pointer
               transform-gpu
               ${focusedId === service.id 
                 ? 'bg-[#EBECE7] text-[#080D10] scale-105 shadow-2xl border-[#FFBD00]/50' 
@@ -55,7 +54,7 @@ const ServicesSection: React.FC = () => {
             {/* Overlay sada samo boja #EBECE7 */}
             <div 
               className={`
-                absolute inset-0 rounded-lg
+                absolute inset-0
                 transition-all duration-500 ease-in-out
                 ${focusedId === service.id 
                   ? 'bg-[#EBECE7]' 
@@ -66,7 +65,7 @@ const ServicesSection: React.FC = () => {
 
             <span 
               className={`
-                relative z-10 text-xs sm:text-sm md:text-base mb-2 sm:mb-0
+                relative z-10 text-xs sm:text-sm md:text-base flex-shrink-0
                 transition-all duration-300
                 ${focusedId === service.id 
                   ? 'opacity-100 text-[#080D10] font-semibold' 
@@ -79,10 +78,13 @@ const ServicesSection: React.FC = () => {
 
             <h3
               className={`
-                relative z-10 text-[clamp(1.6rem,4vw,2.5rem)] font-bold mb-2 sm:mb-0 w-full
+                relative z-10 text-[clamp(1.2rem,4vw,2.5rem)] sm:text-[clamp(1.6rem,4vw,2.5rem)] font-bold flex-1 mx-4 sm:mx-8
                 transition-all duration-500 ease-out
-                ${index % 2 === 0 ? "sm:text-left sm:ml-8" : "sm:text-right sm:mr-8"} 
-                text-center sm:text-inherit
+                text-center 
+                ${index === 0 ? 'lg:text-left' : 
+                  index === 1 ? 'lg:text-right' : 
+                  index === 2 ? 'lg:text-center' : 
+                  'lg:text-center'}
                 ${focusedId === service.id 
                   ? 'transform translate-y-[-2px] text-[#080D10]' 
                   : 'group-hover:transform group-hover:translate-y-[-2px] group-hover:text-[#080D10]'
@@ -94,8 +96,8 @@ const ServicesSection: React.FC = () => {
 
             <span
               className={`
-                relative z-10 text-xs sm:text-sm md:text-base uppercase tracking-wide 
-                transition-all duration-300 text-center sm:text-right
+                relative z-10 text-xs sm:text-sm md:text-base uppercase tracking-wide flex-shrink-0
+                transition-all duration-300 text-right
                 ${focusedId === service.id 
                   ? 'text-[#FFBD00] font-bold transform scale-110' 
                   : 'group-hover:text-[#FFBD00] group-hover:font-semibold group-hover:scale-105'

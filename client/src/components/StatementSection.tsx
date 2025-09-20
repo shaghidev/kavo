@@ -11,16 +11,28 @@ interface TypewriterWordProps {
 }
 
 function TypewriterWord({ text, delay = 0 }: TypewriterWordProps) {
+  const letters = text.split('');
+  const letterDelay = 0.08; // mora biti isti kao u glavnoj komponenti
+  
   return (
-    <motion.span
-      className="inline-block mr-2" // manji razmak između riječi
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.3, ease: 'easeOut' }}
-      viewport={{ once: false, amount: 0.6 }}
-    >
-      {text}
-    </motion.span>
+    <span className="inline-block mr-2">
+      {letters.map((letter, index) => (
+        <motion.span
+          key={index}
+          className="inline-block"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{
+            delay: delay + (index * letterDelay), // svako slovo se pojavljuje nakon prethodnog
+            duration: 0.1,
+            ease: 'easeOut'
+          }}
+          viewport={{ once: false, amount: 0.4 }}
+        >
+          {letter === ' ' ? '\u00A0' : letter} {/* non-breaking space za razmake */}
+        </motion.span>
+      ))}
+    </span>
   );
 }
 
@@ -35,36 +47,54 @@ interface AccentUnderlineImageProps {
 function AccentUnderlineImage({
   children,
   imageSrc,
-  offset = 6,
-  height = 20,
+  offset = 8,
+  height = 28,
   delay = 0,
 }: AccentUnderlineImageProps & { delay?: number }) {
+  const text = typeof children === 'string' ? children : 'dizajn,'; // fallback
+  const letters = text.split('');
+  const letterDelay = 0.08;
+
   return (
     <span className="relative inline-block mr-2">
-      <span className="relative z-10">{children}</span>
+      <span className="relative z-10">
+        {letters.map((letter, index) => (
+          <motion.span
+            key={index}
+            className="inline-block"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{
+              delay: delay + (index * letterDelay),
+              duration: 0.1,
+              ease: 'easeOut'
+            }}
+            viewport={{ once: false, amount: 0.4 }}
+          >
+            {letter === ' ' ? '\u00A0' : letter}
+          </motion.span>
+        ))}
+      </span>
       <motion.div
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         transition={{
-          delay: delay,
+          delay: delay + (text.length * letterDelay) + 0.2, // podcrtavanje nakon što se riječ završi
           duration: 0.8,
           ease: 'easeInOut',
         }}
-        viewport={{ once: false, amount: 0.6 }}
+        viewport={{ once: false, amount: 0.4 }}
+        className="absolute left-0 w-full origin-left"
         style={{
-          position: 'absolute',
-          left: 0,
-          bottom: -offset,
-          width: '100%',
+          bottom: `-${offset}px`,
           height: `${height}px`,
-          transformOrigin: 'left',
         }}
       >
         <Image
           src={imageSrc}
           alt="underline"
           fill
-          className="object-contain"
+          className="object-contain object-bottom" // dodao object-bottom za bolje pozicioniranje
           priority
         />
       </motion.div>
@@ -77,35 +107,61 @@ interface AccentCircleWordProps {
   children: React.ReactNode;
   imageSrc: string;
   offset?: number;
-  delay?: number; // Add delay prop
+  delay?: number;
 }
 
 function AccentCircleWord({
   children,
   imageSrc,
-  offset = 0,
-  delay = 0, // Add delay parameter
+  offset = 10,
+  delay = 0,
 }: AccentCircleWordProps) {
+  const text = typeof children === 'string' ? children : 'iskustava'; // fallback
+  const letters = text.split('');
+  const letterDelay = 0.08;
+
   return (
     <span className="relative inline-block mr-2">
-      <span className="relative z-10">{children}</span>
+      <span className="relative z-10">
+        {letters.map((letter, index) => (
+          <motion.span
+            key={index}
+            className="inline-block"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{
+              delay: delay + (index * letterDelay),
+              duration: 0.1,
+              ease: 'easeOut'
+            }}
+            viewport={{ once: false, amount: 0.4 }}
+          >
+            {letter === ' ' ? '\u00A0' : letter}
+          </motion.span>
+        ))}
+      </span>
       <motion.div
-        className="absolute left-0 right-0 mx-auto w-full h-full"
-        style={{ bottom: -offset }}
+        className="absolute"
+        style={{ 
+          width: '130%', // povećao za bolju pokrivenost
+          height: '130%', // povećao za bolju pokrivenost
+          bottom: `-${offset}px`, // vratil na čisti offset
+          left: '-15%', // popravio razmak i poziciju
+        }}
         initial={{ scale: 0, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
         transition={{
-          delay: delay,
+          delay: delay + (text.length * letterDelay) + 0.2, // animacija nakon što se riječ završi
           duration: 0.8,
           ease: 'easeOut',
         }}
-        viewport={{ once: false, amount: 0.6 }}
+        viewport={{ once: false, amount: 0.4 }}
       >
         <Image
           src={imageSrc}
           alt="circle word"
           fill
-          className="object-contain"
+          className="object-contain object-center" // dodao object-center za bolje centriranje
           priority
         />
       </motion.div>
@@ -115,74 +171,98 @@ function AccentCircleWord({
 
 // --- Statement Section ---
 export default function StatementSection() {
-  const textDelay = 0.15; // delay between words
-  const underlineStartDelay = 2; // when to start underline animations
-  const underlineDelay = 0.8; // delay between underlines
+  const letterDelay = 0.08; // delay između slova
+  const wordPause = 0.2; // kratka pauza između riječi
+  
+  // Prvo prebrojimo sve riječi i slova
+  const allWords = [
+    'Volimo',
+    'dizajn,',
+    'tehnologiju', 
+    'i',
+    'stvaranje',
+    'digitalnih',
+    'iskustava',
+    'koja', 'ljudi',
+    'pamte.'
+  ];
 
-  const lines: (React.ReactNode | string)[][] = [
-    ['Volimo'],
+  const lines: ((delay: number) => React.ReactNode | string)[][] = [
+    [() => 'Volimo'],
     [
-      <AccentUnderlineImage
-        key="dizajn"
-        imageSrc="/underline/words1.png"
-        offset={8}
-        height={28}
-        delay={underlineStartDelay}
-      >
-        dizajn,
-      </AccentUnderlineImage>,
+      (delay: number) => (
+        <AccentUnderlineImage
+          key="dizajn"
+          imageSrc="/underline/words1.png"
+          offset={6}
+          height={30}
+          delay={delay}
+        >
+          dizajn,
+        </AccentUnderlineImage>
+      ),
     ],
     [
-      <AccentUnderlineImage
-        key="tehno"
-        imageSrc="/underline/words2.png"
-        offset={8}
-          height={28}
-          delay={underlineStartDelay + underlineDelay}
+      (delay: number) => (
+        <AccentUnderlineImage
+          key="tehno"
+          imageSrc="/underline/words2.png"
+          offset={6}
+          height={30}
+          delay={delay}
         >
           tehnologiju
-        </AccentUnderlineImage>,
-        ' i',
-      ],
-    ['stvaranje'],
-    ['digitalnih'],
-    [
-      <AccentCircleWord
-        key="iskustva"
-        imageSrc="/underline/words3.png"
-        offset={0}
-        delay={underlineStartDelay + underlineDelay * 2} // Add delay after underlines
-      >
-        iskustava
-      </AccentCircleWord>,
+        </AccentUnderlineImage>
+      ),
+      () => ' i',
     ],
-    ['koja ljudi'],
-    ['pamtе.'],
+    [() => 'stvaranje'],
+    [() => 'digitalnih'],
+    [
+      (delay: number) => (
+        <AccentCircleWord
+          key="iskustva"
+          imageSrc="/underline/words3.png"
+          offset={8}
+          delay={delay}
+        >
+          iskustava
+        </AccentCircleWord>
+      ),
+    ],
+    [() => 'koja ljudi'],
+    [() => 'pamte.'],
   ];
 
   let delayCounter = 0;
 
   return (
-    <section className="relative isolate flex items-center justify-center h-screen w-full bg-[#EBECE7] px-6">
-      <div className="mx-auto w-full max-w-[780px] text-center py-32 md:py-40">
-        <h1 className="font-extrabold tracking-tight leading-[0.9] text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#080D10]">
+    <section className="relative isolate flex items-center justify-center min-h-screen w-full bg-[#EBECE7] px-6">
+      <div className="mx-auto w-full max-w-[780px] text-center py-20 xs:py-24 sm:py-28 md:py-32 lg:py-40">
+        <h1 className="font-extrabold tracking-tight leading-[0.9] text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl text-[#080D10]">
           {lines.map((line, i) => (
             <span key={i} className="block mb-3">
-              {line.map((word, j) => {
-                delayCounter += textDelay; // Use textDelay constant instead of hardcoded 0.15
-                if (typeof word === 'string') {
-                  return <TypewriterWord key={j} text={word} delay={delayCounter} />;
+              {line.map((wordFunc, j) => {
+                // Računamo delay za svaku riječ na osnovu prethodnih riječi
+                let wordStartDelay = 0;
+                for (let k = 0; k < delayCounter; k++) {
+                  const prevWord = allWords[k];
+                  if (prevWord) {
+                    wordStartDelay += prevWord.length * letterDelay + wordPause;
+                  }
                 }
+                
+                const result = wordFunc(wordStartDelay);
+                delayCounter++; // brojimo redoslijed riječi
+                
+                if (typeof result === 'string') {
+                  return <TypewriterWord key={j} text={result} delay={wordStartDelay} />;
+                }
+                
                 return (
-                  <motion.span
-                    key={j}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: delayCounter, duration: 0.3 }}
-                    viewport={{ once: false, amount: 0.6 }}
-                  >
-                    {word}
-                  </motion.span>
+                  <span key={j}>
+                    {result}
+                  </span>
                 );
               })}
             </span>
