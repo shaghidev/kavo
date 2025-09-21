@@ -38,35 +38,11 @@ const Typewriter: React.FC<{ text: string; delay?: number; speed?: number }> = (
 };
 
 // Dekorativni elementi
-const DecorativeElements: React.FC<{ className?: string }> = ({ className = "" }) => (
-  <div className={`absolute pointer-events-none ${className}`}>
-    {/* Zvjezdice */}
-    <div className="absolute top-4 left-8 text-2xl">✱</div>
-    <div className="absolute top-16 right-12 text-lg">✱</div>
-    <div className="absolute bottom-20 left-16 text-xl">✱</div>
-    <div className="absolute bottom-8 right-20 text-2xl">✱</div>
-    
-    {/* Krugovi */}
-    <div className="absolute top-12 right-4 w-3 h-3 rounded-full border-1 border-black"></div>
-    <div className="absolute top-32 left-4 w-4 h-4 rounded-full border-2 border-black"></div>
-    <div className="absolute bottom-16 right-8 w-2 h-2 rounded-full border-2 border-black"></div>
-    
-    {/* Križevi */}
-    <div className="absolute top-20 left-20 text-lg">+</div>
-    <div className="absolute bottom-32 right-16 text-xl">+</div>
-    <div className="absolute top-40 right-24 text-sm">+</div>
-    
-    {/* X-ovi */}
-    <div className="absolute top-8 right-32 text-lg">×</div>
-    <div className="absolute bottom-12 left-8 text-xl">×</div>
-  </div>
-);
 
 const KavoStudioSection: React.FC = () => {
   return (
     <section className="bg-[#EBECE7] text-[#080D10] py-16 px-6 md:px-12 lg:px-16 relative overflow-hidden">
       {/* Dekorativni elementi */}
-      <DecorativeElements />
       
       {/* Glavni naslov */}
       <div className="text-center mb-20 lg:mb-28">

@@ -67,38 +67,203 @@ const ScrollCards: React.FC = () => {
   const cardCount = cards.length;
 
   // Y transformacije
-const yTransform0 = useTransform(scrollYProgress, [0 / cardCount, 1 / cardCount], ['100%', '0%']);
-const yTransform1 = useTransform(scrollYProgress, [1 / cardCount, 2 / cardCount], ['100%', '0%']);
-const yTransform2 = useTransform(scrollYProgress, [2 / cardCount, 3 / cardCount], ['100%', '0%']);
-const yTransform3 = useTransform(scrollYProgress, [3 / cardCount, 4 / cardCount], ['100%', '0%']);
+  const yTransform0 = useTransform(scrollYProgress, [0 / cardCount, 1 / cardCount], ['100%', '0%']);
+  const yTransform1 = useTransform(scrollYProgress, [1 / cardCount, 2 / cardCount], ['100%', '0%']);
+  const yTransform2 = useTransform(scrollYProgress, [2 / cardCount, 3 / cardCount], ['100%', '0%']);
+  const yTransform3 = useTransform(scrollYProgress, [3 / cardCount, 4 / cardCount], ['100%', '0%']);
 
-// Opacity transformacije
-const opacityTransform0 = useTransform(scrollYProgress, [0 / cardCount, 1 / cardCount], [0, 1]);
-const opacityTransform1 = useTransform(scrollYProgress, [1 / cardCount, 2 / cardCount], [0, 1]);
-const opacityTransform2 = useTransform(scrollYProgress, [2 / cardCount, 3 / cardCount], [0, 1]);
-const opacityTransform3 = useTransform(scrollYProgress, [3 / cardCount, 4 / cardCount], [0, 1]);
+  // Opacity transformacije
+  const opacityTransform0 = useTransform(scrollYProgress, [0 / cardCount, 1 / cardCount], [0, 1]);
+  const opacityTransform1 = useTransform(scrollYProgress, [1 / cardCount, 2 / cardCount], [0, 1]);
+  const opacityTransform2 = useTransform(scrollYProgress, [2 / cardCount, 3 / cardCount], [0, 1]);
+  const opacityTransform3 = useTransform(scrollYProgress, [3 / cardCount, 4 / cardCount], [0, 1]);
 
-const yTransforms = [yTransform0, yTransform1, yTransform2, yTransform3];
-const opacityTransforms = [opacityTransform0, opacityTransform1, opacityTransform2, opacityTransform3];
+  const yTransforms = [yTransform0, yTransform1, yTransform2, yTransform3];
+  const opacityTransforms = [opacityTransform0, opacityTransform1, opacityTransform2, opacityTransform3];
 
   return (
     <section ref={containerRef} className="relative w-full bg-[#FFBD00] text-[#080D10] py-12 xs:py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 flex flex-col items-center">
-      {/* Naslov */}
+      {/* Naslov sa animacijama */}
       <div className="relative text-center mb-12 xs:mb-14 sm:mb-16 px-3 xs:px-4 sm:px-6 max-w-6xl">
         <motion.h2
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
           className="font-extrabold leading-tight break-words text-[clamp(2rem,8vw,4rem)] xs:text-[clamp(2.2rem,7.5vw,4.5rem)] sm:text-[clamp(2.5rem,7vw,5rem)] md:text-[clamp(3rem,6vw,6rem)] lg:text-[clamp(3.5rem,5.5vw,7rem)] xl:text-[clamp(4rem,5vw,8rem)] 2xl:text-[clamp(4.5rem,4.5vw,9rem)]"
         >
-          <motion.span initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: [0.25,0.4,0.25,1] }}>U ČEMU SMO</motion.span>{' '}
+          {/* U ČEMU SMO - animacija odozdo */}
+          <motion.span 
+            variants={{
+              hidden: { 
+                opacity: 0, 
+                y: 100, 
+                rotateX: -45,
+                scale: 0.8
+              },
+              visible: { 
+                opacity: 1, 
+                y: 0,
+                rotateX: 0,
+                scale: 1
+              }
+            }}
+            transition={{ 
+              duration: 0.8, 
+              delay: 0.1, 
+              ease: [0.25, 0.4, 0.25, 1],
+              type: "spring",
+              stiffness: 100
+            }}
+            style={{ transformOrigin: '50% 100%' }}
+            className="inline-block"
+            whileHover={{ 
+              scale: 1.05, 
+              y: -5,
+              transition: { duration: 0.3 }
+            }}
+          >
+            U ČEMU SMO
+          </motion.span>{' '}
+
+          {/* STVARNO sa podvlačenjem */}
           <span className="relative inline-block">
-            <motion.span initial={{ opacity: 0, rotateX: 90 }} animate={{ opacity: 1, rotateX: 0 }} transition={{ duration: 0.7, delay: 0.4, ease: [0.25,0.4,0.25,1] }} style={{ transformOrigin: '50% 50%' }} className="inline-block">STVARNO</motion.span>
-            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: [0.25,0.4,0.25,1] }} className="absolute left-0 bottom-0 w-full h-auto origin-left">
-              <Image src="/underline/cards.png" alt="Underline decoration" width={800} height={100} priority sizes="(max-width: 768px) 100vw, 800px" className="w-full h-auto object-contain pointer-events-none select-none" />
+            <motion.span 
+              variants={{
+                hidden: { 
+                  opacity: 0, 
+                  scale: 0.5, 
+                  rotateY: -90,
+                  z: -100
+                },
+                visible: { 
+                  opacity: 1, 
+                  scale: 1,
+                  rotateY: 0,
+                  z: 0
+                }
+              }}
+              transition={{ 
+                duration: 1, 
+                delay: 0.4, 
+                ease: [0.175, 0.885, 0.32, 1.275],
+                type: "spring",
+                stiffness: 80
+              }} 
+              style={{ transformOrigin: '50% 50%' }} 
+              className="inline-block"
+              whileHover={{ 
+                scale: 1.1, 
+                rotateY: 10,
+                z: 50,
+                transition: { duration: 0.3 }
+              }}
+            >
+              STVARNO
+            </motion.span>
+            
+            {/* Animirana podvlaka sa naprednim efektima */}
+            <motion.div 
+              variants={{
+                hidden: { 
+                  scaleX: 0, 
+                  opacity: 0,
+                  rotateZ: -10,
+                  y: 20
+                },
+                visible: { 
+                  scaleX: 1, 
+                  opacity: 1,
+                  rotateZ: 0,
+                  y: 0
+                }
+              }}
+              transition={{ 
+                duration: 1.5, 
+                delay: 1, 
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }} 
+              className="absolute left-0 bottom-0 w-full h-auto origin-left"
+              whileHover={{ 
+                scaleY: 1.2,
+                scaleX: 1.05,
+                y: -3,
+                transition: { duration: 0.3, ease: "easeOut" }
+              }}
+            >
+              {/* Glavna slika podvlake */}
+              <motion.div
+                animate={{
+                  y: [0, -3, 0],
+                  rotateZ: [0, 1, 0]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <Image 
+                  src="/underline/cards.png" 
+                  alt="Underline decoration" 
+                  width={800} 
+                  height={100} 
+                  priority 
+                  sizes="(max-width: 768px) 100vw, 800px" 
+                  className="w-full h-auto object-contain pointer-events-none select-none" 
+                />
+              </motion.div>
+              
+              {/* Dodatni glow efekat */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ 
+                  opacity: [0, 0.3, 0],
+                  scale: [0.8, 1.1, 0.8]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  delay: 1.5,
+                  ease: "easeInOut"
+                }}
+                className="absolute inset-0 bg-[#080D10]/10 rounded-full blur-sm"
+              />
             </motion.div>
           </span>{' '}
-          <motion.span initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.6, ease: [0.25,0.4,0.25,1] }}>DOBRI</motion.span>
+
+          {/* DOBRI - animacija odozgo */}
+          <motion.span 
+            variants={{
+              hidden: { 
+                opacity: 0, 
+                y: -100, 
+                rotateX: 45,
+                scale: 0.8
+              },
+              visible: { 
+                opacity: 1, 
+                y: 0,
+                rotateX: 0,
+                scale: 1
+              }
+            }}
+            transition={{ 
+              duration: 0.8, 
+              delay: 0.7, 
+              ease: [0.25, 0.4, 0.25, 1],
+              type: "spring",
+              stiffness: 100
+            }}
+            style={{ transformOrigin: '50% 0%' }}
+            className="inline-block"
+            whileHover={{ 
+              scale: 1.05, 
+              y: -5,
+              transition: { duration: 0.3 }
+            }}
+          >
+            DOBRI
+          </motion.span>
         </motion.h2>
       </div>
 

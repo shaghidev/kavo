@@ -12,7 +12,7 @@ interface TypewriterWordProps {
 
 function TypewriterWord({ text, delay = 0 }: TypewriterWordProps) {
   const letters = text.split('');
-  const letterDelay = 0.08; // mora biti isti kao u glavnoj komponenti
+  const letterDelay = 0.02; // ubrzano sa 0.04 na 0.02
   
   return (
     <span className="inline-block mr-2">
@@ -24,7 +24,7 @@ function TypewriterWord({ text, delay = 0 }: TypewriterWordProps) {
           whileInView={{ opacity: 1 }}
           transition={{
             delay: delay + (index * letterDelay), // svako slovo se pojavljuje nakon prethodnog
-            duration: 0.1,
+            duration: 0.03, // skračeno sa 0.05 na 0.03
             ease: 'easeOut'
           }}
           viewport={{ once: false, amount: 0.4 }}
@@ -53,7 +53,7 @@ function AccentUnderlineImage({
 }: AccentUnderlineImageProps & { delay?: number }) {
   const text = typeof children === 'string' ? children : 'dizajn,'; // fallback
   const letters = text.split('');
-  const letterDelay = 0.08;
+  const letterDelay = 0.02; // ubrzano sa 0.04 na 0.02
 
   return (
     <span className="relative inline-block mr-2">
@@ -66,7 +66,7 @@ function AccentUnderlineImage({
             whileInView={{ opacity: 1 }}
             transition={{
               delay: delay + (index * letterDelay),
-              duration: 0.1,
+              duration: 0.03, // skračeno sa 0.05 na 0.03
               ease: 'easeOut'
             }}
             viewport={{ once: false, amount: 0.4 }}
@@ -79,8 +79,8 @@ function AccentUnderlineImage({
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         transition={{
-          delay: delay + (text.length * letterDelay) + 0.2, // podcrtavanje nakon što se riječ završi
-          duration: 0.8,
+          delay: delay + (text.length * letterDelay) + 0.05, // skračeno sa 0.1 na 0.05
+          duration: 0.2, // skračeno sa 0.4 na 0.2
           ease: 'easeInOut',
         }}
         viewport={{ once: false, amount: 0.4 }}
@@ -118,7 +118,7 @@ function AccentCircleWord({
 }: AccentCircleWordProps) {
   const text = typeof children === 'string' ? children : 'iskustava'; // fallback
   const letters = text.split('');
-  const letterDelay = 0.08;
+  const letterDelay = 0.02; // ubrzano sa 0.04 na 0.02
 
   return (
     <span className="relative inline-block mr-2">
@@ -131,7 +131,7 @@ function AccentCircleWord({
             whileInView={{ opacity: 1 }}
             transition={{
               delay: delay + (index * letterDelay),
-              duration: 0.1,
+              duration: 0.03, // skračeno sa 0.05 na 0.03
               ease: 'easeOut'
             }}
             viewport={{ once: false, amount: 0.4 }}
@@ -151,8 +151,8 @@ function AccentCircleWord({
         initial={{ scale: 0, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
         transition={{
-          delay: delay + (text.length * letterDelay) + 0.2, // animacija nakon što se riječ završi
-          duration: 0.8,
+          delay: delay + (text.length * letterDelay) + 0.05, // skračeno sa 0.1 na 0.05
+          duration: 0.2, // skračeno sa 0.4 na 0.2
           ease: 'easeOut',
         }}
         viewport={{ once: false, amount: 0.4 }}
@@ -171,8 +171,8 @@ function AccentCircleWord({
 
 // --- Statement Section ---
 export default function StatementSection() {
-  const letterDelay = 0.08; // delay između slova
-  const wordPause = 0.2; // kratka pauza između riječi
+  const letterDelay = 0.02; // ubrzano sa 0.04 na 0.02
+  const wordPause = 0.05; // skračeno sa 0.1 na 0.05
   
   // Prvo prebrojimo sve riječi i slova
   const allWords = [
