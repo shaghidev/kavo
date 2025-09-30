@@ -52,7 +52,7 @@ const KavoStudioSection: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          KAVO STUDIO
+          Kavo Studio
         </motion.h1>
       </div>
 
@@ -68,13 +68,13 @@ const KavoStudioSection: React.FC = () => {
         >
           <div className="order-2 lg:order-1">
             <motion.p 
-              className="text-base md:text-lg lg:text-xl leading-relaxed uppercase border-l border-[#080D10] pl-6 max-w-lg"
+              className="text-base md:text-lg lg:text-xl leading-relaxed pl-6 max-w-lg border-l border-[#080D10]"
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <Typewriter 
-                text="AGENCIJA KOJU VODE DVOJE MLADIH KREATIVACA, VIZIONARA I RADOHOLIČARA. POMAŽEMO PODUZEĆIMA I STARTUPOVIMA DA BUDU VIDLJIVI ONLINE. NE RADIMO SAMO WEB STRANICE – MI IH DIZAJNIRAMO, RAZVIJAMO, ODRŽAVAMO I OGLAŠAVAMO, TAKO DA SE VI MOŽETE FOKUSIRATI NA SVOJE KLIJENTE."
+                text="Agencija koju vode troje mladih kreativaca, vizionara i radoholičara. Pomažemo poduzećima i startupovima da budu vidljivi online. Ne radimo samo web stranice – mi ih dizajniramo, razvijamo, održavamo i oglašavamo, tako da se vi možete fokusirati na svoje klijente."
                 delay={1000}
                 speed={25}
               />
@@ -137,13 +137,13 @@ const KavoStudioSection: React.FC = () => {
           </div>
           <div className="lg:text-right lg:flex lg:justify-end">
             <motion.p 
-              className="text-base md:text-lg lg:text-xl leading-relaxed uppercase border-r border-[#080D10] pr-6 max-w-lg"
+              className="text-base md:text-lg lg:text-xl leading-relaxed pr-6 max-w-lg border-r border-[#080D10]"
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
             >
               <Typewriter 
-                text="NAŠA MISIJA JE BITI POUZDAN PARTNER KOJI PODUZEĆIMA I STARTUPOVIMA OMOGUĆUJE DA SE ISTAKNU NA TRŽIŠTU I POVEĆAJU PROMET PUBLIKOM."
+                text="Naša misija je biti pouzdan partner koji poduzećima i startupovima omogućuje da se istaknu na tržištu i povećaju promet publikom."
                 delay={4000}
                 speed={30}
               />
@@ -160,13 +160,13 @@ const KavoStudioSection: React.FC = () => {
         >
           <div className="order-2 lg:order-1">
             <motion.p 
-              className="text-base md:text-lg lg:text-xl leading-relaxed uppercase border-l border-[#080D10] pl-6 max-w-lg"
+              className="text-base md:text-lg lg:text-xl leading-relaxed pl-6 max-w-lg border-l border-[#080D10]"
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
             >
               <Typewriter 
-                text="USUĐUJEMO SE BITI DRUGAČIJI. DOK SVIJET ČESTO SLIJEDI GOTOVE OBRASCE, MI TRAŽIMO ONO ŠTO VAŠ BREND ČINI POSEBNIM I PRETVARAMO TO U DIGITALNO ISKUSTVO KOJE LJUDI PAMTE."
+                text="Usuđujemo se biti drugačiji. Dok svijet često slijedi gotove obrasce, mi tražimo ono što vaš brend čini posebnim i pretvaramo to u digitalno iskustvo koje ljudi pamte."
                 delay={7000}
                 speed={35}
               />

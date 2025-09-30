@@ -48,7 +48,8 @@ const AnimatedCard = memo(({ card, yTransform, opacityTransform, prefersReducedM
             loading="eager"
           />
         </div>
-        <div className="flex flex-col items-center justify-center h-[35%] xs:h-[32%] sm:h-[30%]">
+        {/* Add bottom margin to the text container */}
+        <div className="flex flex-col items-center justify-center h-[35%] xs:h-[32%] sm:h-[30%] mb-4 xs:mb-5 sm:mb-6 md:mb-7 lg:mb-8">
           <h3 className="font-bold text-[#080D10] text-[clamp(1.1rem,4vw,1.6rem)] xs:text-[clamp(1.2rem,3.5vw,1.8rem)] sm:text-[clamp(1.4rem,3vw,2rem)] md:text-[clamp(1.6rem,2.8vw,2.2rem)] lg:text-[clamp(1.8rem,2.5vw,2.4rem)] xl:text-[clamp(2rem,2.2vw,2.6rem)] leading-tight mb-1 xs:mb-2">{card.title}</h3>
           <p className="text-[#080D10] text-[clamp(0.7rem,2.5vw,0.9rem)] xs:text-[clamp(0.8rem,2.2vw,1rem)] sm:text-[clamp(0.9rem,2vw,1.1rem)] md:text-[clamp(1rem,1.8vw,1.2rem)] lg:text-[clamp(1.1rem,1.6vw,1.3rem)] xl:text-[clamp(1.2rem,1.4vw,1.4rem)] max-w-[95%] leading-relaxed">{card.description}</p>
         </div>
@@ -127,41 +128,7 @@ const ScrollCards: React.FC = () => {
 
           {/* STVARNO sa podvlačenjem */}
           <span className="relative inline-block">
-            <motion.span 
-              variants={{
-                hidden: { 
-                  opacity: 0, 
-                  scale: 0.5, 
-                  rotateY: -90,
-                  z: -100
-                },
-                visible: { 
-                  opacity: 1, 
-                  scale: 1,
-                  rotateY: 0,
-                  z: 0
-                }
-              }}
-              transition={{ 
-                duration: 1, 
-                delay: 0.4, 
-                ease: [0.175, 0.885, 0.32, 1.275],
-                type: "spring",
-                stiffness: 80
-              }} 
-              style={{ transformOrigin: '50% 50%' }} 
-              className="inline-block"
-              whileHover={{ 
-                scale: 1.1, 
-                rotateY: 10,
-                z: 50,
-                transition: { duration: 0.3 }
-              }}
-            >
-              STVARNO
-            </motion.span>
-            
-            {/* Animirana podvlaka sa naprednim efektima */}
+            {/* Animirana podvlaka sa naprednim efektima - moved BEFORE text to be behind it */}
             <motion.div 
               variants={{
                 hidden: { 
@@ -182,7 +149,7 @@ const ScrollCards: React.FC = () => {
                 delay: 1, 
                 ease: [0.25, 0.46, 0.45, 0.94]
               }} 
-              className="absolute left-0 bottom-0 w-full h-auto origin-left"
+              className="absolute left-0 bottom-0 w-full h-auto origin-left z-0"
               whileHover={{ 
                 scaleY: 1.2,
                 scaleX: 1.05,
@@ -229,6 +196,41 @@ const ScrollCards: React.FC = () => {
                 className="absolute inset-0 bg-[#080D10]/10 rounded-full blur-sm"
               />
             </motion.div>
+            
+            {/* Text now comes AFTER the underline so it appears on top */}
+            <motion.span 
+              variants={{
+                hidden: { 
+                  opacity: 0, 
+                  scale: 0.5, 
+                  rotateY: -90,
+                  z: -100
+                },
+                visible: { 
+                  opacity: 1, 
+                  scale: 1,
+                  rotateY: 0,
+                  z: 0
+                }
+              }}
+              transition={{ 
+                duration: 1, 
+                delay: 0.4, 
+                ease: [0.175, 0.885, 0.32, 1.275],
+                type: "spring",
+                stiffness: 80
+              }} 
+              style={{ transformOrigin: '50% 50%' }} 
+              className="inline-block relative z-10"
+              whileHover={{ 
+                scale: 1.1, 
+                rotateY: 10,
+                z: 50,
+                transition: { duration: 0.3 }
+              }}
+            >
+              STVARNO
+            </motion.span>
           </span>{' '}
 
           {/* DOBRI - animacija odozgo */}

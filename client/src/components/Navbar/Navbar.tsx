@@ -23,6 +23,7 @@ const Navbar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const pathname = usePathname();
 
   const toggleMobileMenu = () => {
@@ -37,6 +38,48 @@ const Navbar: React.FC = () => {
       setIntroComplete(true); // Signal that intro is complete
     }, 50);
   };
+
+  // Detect active section based on scroll
+  useEffect(() => {
+    if (pathname !== '/') return;
+
+    const sections = [
+      { id: 'about', element: document.querySelector('#about') },
+      { id: 'services', element: document.querySelector('#services') },
+      { id: 'portfolio', element: document.querySelector('#portfolio') },
+      { id: 'contact', element: document.querySelector('#contact') },
+    ];
+    
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const offset = viewportHeight * 0.3; // 30% of viewport height
+      
+      // Find the current section
+      for (const section of sections) {
+        if (!section.element) continue;
+        
+        const rect = section.element.getBoundingClientRect();
+        const sectionTop = rect.top + window.scrollY;
+        const sectionBottom = sectionTop + rect.height;
+        
+        if (scrollY >= sectionTop - offset && scrollY < sectionBottom - offset) {
+          setActiveSection(section.id);
+          return;
+        }
+      }
+      
+      // If no section is active, we're likely at the top (hero section)
+      if (scrollY < viewportHeight * 0.5) {
+        setActiveSection('');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [pathname]);
 
   // Handle navbar visibility based on scroll direction
   useEffect(() => {
@@ -136,20 +179,24 @@ const Navbar: React.FC = () => {
   let logoSrc = '/logo/kavo-logo.png';
   let textColor: 'white' | 'black' = 'white';
   let navbarBg = 'transparent';
+  let accentColor = '#FFBD00';
 
   if (pathname === '/contact' || pathname === '/privacy-policy') {
     // Contact stranica je tamna - koristimo bijeli logo i bijeli tekst
     logoSrc = '/logo/kavo-logo.png';
     textColor = 'white';
     navbarBg = 'rgba(8, 13, 16, 0.95)';
+    accentColor = '#FFBD00';
   } else if (isYellowSection || pathname === '/branding' || pathname === '/graficki-dizajn' || pathname === '/development' || pathname === '/web-dizajn') {
     logoSrc = '/logo/logo-crni.png';
     textColor = 'black';
     navbarBg = 'rgba(255, 189, 0, 0.95)';
+    accentColor = '#080D10';
   } else if (pathname !== '/') {
     logoSrc = '/logo/logo-crni.png';
     textColor = 'black';
     navbarBg = 'rgba(235, 236, 231, 0.95)';
+    accentColor = '#FFBD00';
   }
 
   // Mobile menu pozadina - prilagodi ovisno o stranici
@@ -208,18 +255,48 @@ const Navbar: React.FC = () => {
               </Link>
             </motion.div>
 
-            {/* Desktop menu */}
+            {/* Desktop menu with enhanced animations */}
             <div className="hidden md:flex items-center space-x-8 xl:space-x-12 text-lg xl:text-xl uppercase tracking-wide font-bold">
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="transition-colors duration-500 hover:text-[#FFBD00]"
-                  style={{ color: textColor }}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {links.map((link) => {
+                const isActive = activeSection === link.href.replace('/#', '');
+                
+                return (
+                  <div key={link.href} className="relative">
+                    <Link
+                      href={link.href}
+                      className="py-2 px-1 block transition-colors duration-300 relative"
+                      style={{ color: textColor }}
+                    >
+                      <motion.span
+                        initial={false}
+                        animate={{ color: isActive ? accentColor : textColor }}
+                        whileHover={{ color: accentColor }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {link.label}
+                        
+                        {/* Animated underline */}
+                        <motion.span
+                          className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full block"
+                          initial={{ scaleX: 0, originX: 0 }}
+                          animate={{ 
+                            scaleX: isActive ? 1 : 0,
+                            backgroundColor: accentColor
+                          }}
+                          whileHover={{ 
+                            scaleX: 1,
+                            backgroundColor: accentColor
+                          }}
+                          transition={{ 
+                            duration: 0.3, 
+                            ease: "easeInOut"
+                          }}
+                        />
+                      </motion.span>
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
 
             {/* Mobile hamburger */}
@@ -270,7 +347,7 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* Enhanced mobile menu with animations */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
@@ -288,48 +365,68 @@ const Navbar: React.FC = () => {
               }}
             >
               <div className="flex flex-col w-full px-6 py-8 space-y-1 uppercase tracking-wide font-bold">
-                {links.map((link, index) => (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ 
-                      delay: index * 0.1, 
-                      duration: 0.3,
-                      ease: "easeOut"
-                    }}
-                  >
-                    <Link
-                      href={link.href}
-                      className="transition-all duration-300 w-full text-xl text-center block py-4 px-6 rounded-xl active:scale-95"
-                      style={{ 
-                        color: mobileTextColor,
-                        borderBottom: pathname === '/contact' 
-                          ? '1px solid rgba(255, 189, 0, 0.1)' 
-                          : '1px solid rgba(128, 128, 128, 0.1)',
-                        backgroundColor: 'transparent'
+                {links.map((link, index) => {
+                  const isActive = activeSection === link.href.replace('/#', '');
+                  
+                  return (
+                    <motion.div
+                      key={link.href}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ 
+                        delay: index * 0.1, 
+                        duration: 0.3,
+                        ease: "easeOut"
                       }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = pathname === '/contact' 
-                          ? 'rgba(255, 189, 0, 0.1)' 
-                          : 'rgba(243, 244, 246, 1)';
-                        e.currentTarget.style.color = pathname === '/contact' 
-                          ? '#FFBD00' 
-                          : '#FFBD00';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'transparent';
-                        e.currentTarget.style.color = mobileTextColor;
-                      }}
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                      }}
+                      className="relative"
                     >
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                ))}
+                      <motion.div 
+                        className="absolute left-0 top-0 bottom-0 w-1 rounded-full"
+                        initial={{ scaleY: 0 }}
+                        animate={{ 
+                          scaleY: isActive ? 1 : 0,
+                          backgroundColor: mobileTextColor
+                        }}
+                        style={{ 
+                          originY: 0,
+                          backgroundColor: isActive ? accentColor : 'transparent'
+                        }}
+                      />
+                      
+                      <Link
+                        href={link.href}
+                        className="transition-all duration-300 w-full text-xl text-center block py-4 px-6 rounded-xl"
+                        style={{ 
+                          color: isActive ? accentColor : mobileTextColor,
+                          borderBottom: pathname === '/contact' 
+                            ? '1px solid rgba(255, 189, 0, 0.1)' 
+                            : '1px solid rgba(128, 128, 128, 0.1)',
+                          backgroundColor: isActive 
+                            ? (pathname === '/contact' ? 'rgba(255, 189, 0, 0.05)' : 'rgba(8, 13, 16, 0.05)')
+                            : 'transparent'
+                        }}
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                        }}
+                      >
+                        <motion.span
+                          initial={false}
+                          whileHover={{ 
+                            scale: 1.05,
+                            color: accentColor,
+                            x: 5
+                          }}
+                          whileTap={{ scale: 0.95 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                          className="block"
+                        >
+                          {link.label}
+                        </motion.span>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.div>
           )}
