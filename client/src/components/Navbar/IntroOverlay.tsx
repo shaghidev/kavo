@@ -13,10 +13,20 @@ const IntroOverlay: React.FC<Props> = ({ onFinish }) => {
   const [showText, setShowText] = useState(true);
   const [skipped, setSkipped] = useState(false);
 
+  // Ensure onFinish is called when animation completes
+  useEffect(() => {
+    if (!showText && !skipped) {
+      console.log("IntroOverlay: Animation completed naturally");
+      setSkipped(true);
+      onFinish();
+    }
+  }, [showText, skipped, onFinish]);
+
   // Scroll listener
   useEffect(() => {
     const handleScroll = () => {
       if (!skipped) {
+        console.log("IntroOverlay: Skipped by scrolling");
         setSkipped(true);
         setShowText(false);
         onFinish();
@@ -24,7 +34,6 @@ const IntroOverlay: React.FC<Props> = ({ onFinish }) => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, [skipped, onFinish]);
 
@@ -64,10 +73,10 @@ const IntroOverlay: React.FC<Props> = ({ onFinish }) => {
                           .pauseFor(800)
                           .deleteAll(30)
                           .callFunction(() => {
+                            console.log("IntroOverlay: Typewriter animation completed");
                             if (!skipped) {
                               setShowText(false);
-                              setSkipped(true);
-                              onFinish();
+                              // Don't set skipped here - let the effect handle it
                             }
                           })
                           .start();

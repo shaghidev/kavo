@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import IntroOverlay from './IntroOverlay';
+import { useAnimation } from '@/context/AnimationContext';
 
 const links = [
   { href: '/#about', label: 'O nama' },
@@ -16,6 +17,7 @@ const links = [
 
 const Navbar: React.FC = () => {
   const [showIntro, setShowIntro] = useState(true);
+  const { setIntroComplete } = useAnimation();
   const [isYellowSection, setIsYellowSection] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -25,6 +27,15 @@ const Navbar: React.FC = () => {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  // Handle intro completion
+  const handleIntroFinish = () => {
+    setShowIntro(false);
+    // Force a small timeout to ensure state updates properly
+    setTimeout(() => {
+      setIntroComplete(true); // Signal that intro is complete
+    }, 50);
   };
 
   // Handle navbar visibility based on scroll direction
@@ -152,8 +163,8 @@ const Navbar: React.FC = () => {
 
   return (
     <LayoutGroup>
-      {showIntro && <IntroOverlay onFinish={() => setShowIntro(false)} />}
-
+      {showIntro && <IntroOverlay onFinish={handleIntroFinish} />}
+      
       <nav 
         className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500 ease-in-out"
         style={{
